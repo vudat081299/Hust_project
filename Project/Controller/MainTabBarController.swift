@@ -28,9 +28,9 @@ class MainTabBarController: UITabBarController {
         
         let tabBarData: [(UIViewController, UIImage, UIImage)] = [
             (feedsViewController, UIImage(named: "home_unselected")!, UIImage(named: "home_unselected")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue)),
-            (exploreViewController, UIImage(named: "home_unselected")!, UIImage(named: "home_unselected")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue)),
-            (notificationsViewController, UIImage(named: "home_unselected")!, UIImage(named: "home_unselected")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue)),
-            (conversationsViewController, UIImage(named: "home_unselected")!, UIImage(named: "home_unselected")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue))
+            (exploreViewController, UIImage(named: "search_unselected")!, UIImage(named: "search_unselected")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue)),
+            (notificationsViewController, UIImage(named: "like_unselected")!, UIImage(named: "like_unselected")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue)),
+            (conversationsViewController, UIImage(named: "ic_mail_outline_white_2x-1")!, UIImage(named: "ic_mail_outline_white_2x-1")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue))
         ]
         
         self.viewControllers = tabBarData.map({ (vc, image, selectedImage) -> UINavigationController in
