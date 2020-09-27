@@ -32,10 +32,11 @@ class MainTabBarController: UITabBarController {
             (conversationsViewController, UIImage(named: "home_unselected")!, UIImage(named: "home_unselected")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue))
         ]
         
-        self.viewControllers = tabBarData.map({ (view, image, selectedImage) -> UIViewController in
-            view.tabBarItem.image = image
-            view.tabBarItem.selectedImage = selectedImage
-            return view
+        self.viewControllers = tabBarData.map({ (vc, image, selectedImage) -> UIViewController in
+            let navigationController = UINavigationController(rootViewController: vc)
+            navigationController.tabBarItem.image = image
+            navigationController.tabBarItem.selectedImage = selectedImage
+            return navigationController
         })
     }
 }
