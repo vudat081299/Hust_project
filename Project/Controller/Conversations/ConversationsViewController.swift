@@ -14,11 +14,12 @@ class ConversationsViewController: UIViewController {
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .brown
+        self.configureViewController()
     }
     
     // MARK: - Helpers
     private func configureViewController() {
-        
+        self.view.backgroundColor = .white
+        self.navigationItem.title = "Messages"
     }
 }
