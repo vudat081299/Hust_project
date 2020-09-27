@@ -14,11 +14,12 @@ class MainTabBarController: UITabBarController {
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.configureViewController()
     }
     
     // MARK: - Helpers
+    
+    /// configure.
     private func configureViewController() {
         let feedsViewController = FeedsViewController()
         let exploreViewController = ExploreViewController()
@@ -32,11 +33,16 @@ class MainTabBarController: UITabBarController {
             (conversationsViewController, UIImage(named: "home_unselected")!, UIImage(named: "home_unselected")!.withRenderingMode(.alwaysTemplate).withTintColor(.systemBlue))
         ]
         
-        self.viewControllers = tabBarData.map({ (vc, image, selectedImage) -> UIViewController in
-            let navigationController = UINavigationController(rootViewController: vc)
-            navigationController.tabBarItem.image = image
-            navigationController.tabBarItem.selectedImage = selectedImage
-            return navigationController
+        self.viewControllers = tabBarData.map({ (vc, image, selectedImage) -> UINavigationController in
+            return self.templateNavigationController(image: image, selectedImage: selectedImage, rootViewController: vc)
         })
+    }
+    
+    /// create navigation bar.
+    private func templateNavigationController(image: UIImage, selectedImage: UIImage, rootViewController: UIViewController) -> UINavigationController {
+        let nav = UINavigationController(rootViewController: rootViewController)
+        nav.tabBarItem.image = image
+        nav.navigationBar.barTintColor = .white
+        return nav
     }
 }
