@@ -20,7 +20,7 @@ class FeedsViewController: UIViewController {
     // MARK: - Helpers
     private func configureViewController() {
         self.view.backgroundColor = .white
-        guard let logoImage = UIImage(named: "twitter_logo_blue") else {
+        guard let logoImage = UIImage(named: "cat") else {
             return
         }
         let imageView = UIImageView(image: logoImage)
