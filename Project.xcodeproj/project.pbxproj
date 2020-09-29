@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FA2495C02523218C0060BECD /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2495BF2523218C0060BECD /* Extension.swift */; };
 		FAFD58A525208D9C006E4F94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58A425208D9C006E4F94 /* AppDelegate.swift */; };
 		FAFD58A725208D9C006E4F94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58A625208D9C006E4F94 /* SceneDelegate.swift */; };
 		FAFD58AC25208D9C006E4F94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAFD58AA25208D9C006E4F94 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		FA2495BF2523218C0060BECD /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		FAFD58A125208D9B006E4F94 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD58A425208D9C006E4F94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAFD58A625208D9C006E4F94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 		FAFD58DE25208EFB006E4F94 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				FA2495BF2523218C0060BECD /* Extension.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				FAFD58F225209346006E4F94 /* NotificationsViewController.swift in Sources */,
 				FAFD58E825209321006E4F94 /* FeedsViewController.swift in Sources */,
 				FAFD58E325208F9C006E4F94 /* MainTabBarController.swift in Sources */,
+				FA2495C02523218C0060BECD /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

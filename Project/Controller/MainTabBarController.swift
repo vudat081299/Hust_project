@@ -10,14 +10,41 @@ import UIKit
 class MainTabBarController: UITabBarController {
 
     // MARK: - Properties
+    lazy var actionButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "new_tweet"), for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = .twitterBlue
+        button.addTarget(self, action: #selector(handleTapActionButton(_:)), for: .touchUpInside)
+        return button
+    }()
     
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViewController()
+        self.configureUI()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        DispatchQueue.main.async {
+            self.actionButton.layer.cornerRadius = self.actionButton.frame.width / 2
+        }
+    }
+    
+    // MARK: - Selector
+    
+    @objc private func handleTapActionButton(_ sender: UIButton) {
+        print("11")
     }
     
     // MARK: - Helpers
+    
+    private func configureUI() {
+        self.view.addSubview(self.actionButton)
+        self.actionButton.anchor(bottom: self.view.safeAreaLayoutGuide.bottomAnchor, right: self.view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
+    }
     
     /// configure.
     private func configureViewController() {
