@@ -107,7 +107,7 @@ class LoginController: UIViewController {
         stackView.distribution = .fillEqually
         
         self.view.addSubview(stackView)
-        stackView.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, right: self.view.rightAnchor, paddingLeft: 32, paddingRight: 32)
+        stackView.anchor(top: self.logoImageView.bottomAnchor, left: self.view.leftAnchor, right: self.view.rightAnchor, paddingTop: 32, paddingLeft: 32, paddingRight: 32)
         
         self.view.addSubview(self.dontHaveAccountButton)
         self.dontHaveAccountButton.anchor(left: self.view.leftAnchor, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, paddingLeft: 40)
