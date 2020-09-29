@@ -58,7 +58,7 @@ class LoginController: UIViewController {
     }()
     
     private lazy var dontHaveAccountButton: UIButton = {
-        let button = Utilities().attributeButton("Don't have an account? ", "Sign up")
+        let button = Utilities().attributeButton("Don't have an account? ", "Sign Up")
         button.addTarget(self, action: #selector(handleShowSignUp(_:)), for: .touchUpInside)
         return button
     }()
@@ -84,7 +84,8 @@ class LoginController: UIViewController {
     }
     
     @objc private func handleShowSignUp(_ sender: UIButton) {
-        print("sign up")
+        let registrationController = RegistrationController()
+        self.navigationController?.pushViewController(registrationController, animated: true)
     }
     
     // MARK: - Helpers
