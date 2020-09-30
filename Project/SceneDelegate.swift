@@ -6,20 +6,37 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: scene)
-        self.window?.rootViewController = UINavigationController(rootViewController: LoginController())
-        self.window?.makeKeyAndVisible()
+    
+        if Auth.auth().currentUser == nil {
+            self.changeRootViewController(view: UINavigationController(rootViewController: LoginController()))
+        } else {
+            self.changeRootViewController(view: MainTabBarController())
+        }
         
+        self.window?.makeKeyAndVisible()
     }
 
+    func changeRootViewController(view: UIViewController) {
+        self.window?.rootViewController = view
+    }
+    
+    func logOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            print("Logout fail.")
+        }
+    }
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
         // This occurs shortly after the scene enters the background, or when its session is discarded.

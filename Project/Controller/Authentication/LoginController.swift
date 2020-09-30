@@ -80,8 +80,25 @@ class LoginController: UIViewController {
     // MARK: - Selector
     
     @objc private func handleLogin(_ sender: UIButton) {
-        print("login")
+        guard let email = self.emailTextField.text else { return }
+        guard let password = self.passwordTextField.text else { return }
+        
+        AuthService.shared.login(email: email, password: password) { (result, error) in
+            if let error = error {
+                print(error)
+                return
+            }
+            self.gotoHomeController()
+        }
     }
+    
+    func gotoHomeController() {
+        let homeController = MainTabBarController()
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+            sceneDelegate.changeRootViewController(view: homeController)
+        }
+    }
+    
     
     @objc private func handleShowSignUp(_ sender: UIButton) {
         let registrationController = RegistrationController()
