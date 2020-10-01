@@ -8,8 +8,17 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    
     // MARK: - Properties
+    
+    var user: User? {
+        didSet {
+            guard let nav = self.viewControllers?[0] as? UINavigationController else { return }
+            guard let feedsViewController = nav.viewControllers.first as? FeedsViewController else { return }
+            feedsViewController.user = user
+        }
+    }
+    
     lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "new_tweet"), for: .normal)
@@ -23,13 +32,21 @@ class MainTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViewController()
-        self.configureUI()
+        self.fetchUser()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         DispatchQueue.main.async {
             self.actionButton.layer.cornerRadius = self.actionButton.frame.width / 2
+        }
+    }
+    
+    // MARK: - API
+    
+    private func fetchUser() {
+        UserService.shared.fetchUser { user in
+            self.user = user
         }
     }
     
@@ -63,6 +80,7 @@ class MainTabBarController: UITabBarController {
         self.viewControllers = tabBarData.map({ (vc, image) -> UINavigationController in
             return self.templateNavigationController(image: image, rootViewController: vc)
         })
+        self.configureUI()
     }
     
     /// create navigation bar.

@@ -10,6 +10,8 @@
 		C4D9DFB4253F93F48A3853AB /* Pods_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96AC30DFC820042C0978FC9E /* Pods_Project.framework */; };
 		C75F5D2483AF89A11ED519CB /* Pods_Project_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D897E91DF7EDB35AC1ACEF77 /* Pods_Project_ProjectUITests.framework */; };
 		C7D0C3A3ABD463D1F56DFD36 /* Pods_ProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4609CD404CFD10BBE3B394CF /* Pods_ProjectTests.framework */; };
+		FA0DC9F7252658C400377539 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0DC9F6252658C400377539 /* UserService.swift */; };
+		FA0DC9FC25265FED00377539 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0DC9FB25265FED00377539 /* User.swift */; };
 		FA2495C02523218C0060BECD /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2495BF2523218C0060BECD /* Extension.swift */; };
 		FA66C5DC2523827400C31151 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA66C5DB2523827400C31151 /* LoginController.swift */; };
 		FA66C5E12523829C00C31151 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA66C5E02523829C00C31151 /* RegistrationController.swift */; };
@@ -57,6 +59,8 @@
 		96AC30DFC820042C0978FC9E /* Pods_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8D4BBDFE92E37D8848B22A0 /* Pods-Project-ProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Project-ProjectUITests.release.xcconfig"; path = "Target Support Files/Pods-Project-ProjectUITests/Pods-Project-ProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D897E91DF7EDB35AC1ACEF77 /* Pods_Project_ProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Project_ProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA0DC9F6252658C400377539 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		FA0DC9FB25265FED00377539 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA2495BF2523218C0060BECD /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		FA66C5DB2523827400C31151 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		FA66C5E02523829C00C31151 /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 		FAFD58D725208E72006E4F94 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FA0DC9FB25265FED00377539 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				FAA3626B2524EE0500580FE2 /* AuthService.swift */,
+				FA0DC9F6252658C400377539 /* UserService.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -524,6 +530,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0DC9F7252658C400377539 /* UserService.swift in Sources */,
 				FAFD58A525208D9C006E4F94 /* AppDelegate.swift in Sources */,
 				FAFD58A725208D9C006E4F94 /* SceneDelegate.swift in Sources */,
 				FA66C5F6252393B400C31151 /* Utilities.swift in Sources */,
@@ -531,6 +538,7 @@
 				FAFD58ED25209338006E4F94 /* ExploreViewController.swift in Sources */,
 				FA66C5DC2523827400C31151 /* LoginController.swift in Sources */,
 				FAA3626C2524EE0500580FE2 /* AuthService.swift in Sources */,
+				FA0DC9FC25265FED00377539 /* User.swift in Sources */,
 				FAFD58F225209346006E4F94 /* NotificationsViewController.swift in Sources */,
 				FAFD58E825209321006E4F94 /* FeedsViewController.swift in Sources */,
 				FAFD58E325208F9C006E4F94 /* MainTabBarController.swift in Sources */,

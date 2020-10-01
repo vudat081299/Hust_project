@@ -6,6 +6,7 @@ target 'Project' do
   use_frameworks!
 
   # Pods for Project
+  pod 'SDWebImage', '~> 5.0'
   pod 'Firebase/Analytics'
 	pod 'Firebase/Core'
 	pod 'Firebase/Database'
