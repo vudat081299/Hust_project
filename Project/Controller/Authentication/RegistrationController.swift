@@ -18,7 +18,7 @@ class RegistrationController: UIViewController {
     private lazy var addPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysTemplate), for: .normal)
-        button.tintColor = .white
+        button.tintColor = .lightGray
         button.imageView?.contentMode = .scaleAspectFill
         button.imageView?.clipsToBounds = true
         button.layer.masksToBounds = true
@@ -81,8 +81,8 @@ class RegistrationController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.backgroundColor = .white
-        button.setTitleColor(.twitterBlue, for: .normal)
+        button.backgroundColor = .twitterBlue
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius =  5
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.addTarget(self, action: #selector(handleSignUp(_:)), for: .touchUpInside)
@@ -156,7 +156,7 @@ class RegistrationController: UIViewController {
     }
     
     private func configureUI() {
-        self.view.backgroundColor = .twitterBlue
+        self.view.backgroundColor = .white
         
         self.view.addSubview(self.addPhotoButton)
         self.addPhotoButton.centerX(inView: self.view, topAnchor: self.view.safeAreaLayoutGuide.topAnchor)
@@ -187,7 +187,7 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         guard let profileImage = info[.editedImage] as? UIImage else { return }
         self.profileImage = profileImage
         
-        self.addPhotoButton.layer.borderColor = UIColor.white.cgColor
+        self.addPhotoButton.layer.borderColor = UIColor.twitterBlue.cgColor
         self.addPhotoButton.layer.borderWidth = 3
         
         self.addPhotoButton.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
