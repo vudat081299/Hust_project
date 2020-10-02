@@ -14,7 +14,7 @@ class LoginController: UIViewController {
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = #imageLiteral(resourceName: "TwitterLogo")
+        imageView.image = #imageLiteral(resourceName: "cat")
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -49,8 +49,8 @@ class LoginController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Log in", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
-        button.backgroundColor = .white
-        button.setTitleColor(.twitterBlue, for: .normal)
+        button.backgroundColor = .twitterBlue
+        button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius =  5
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
         button.addTarget(self, action: #selector(handleLogin(_:)), for: .touchUpInside)
@@ -72,9 +72,7 @@ class LoginController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        DispatchQueue.main.async {
-            self.logoImageView.layer.cornerRadius = self.logoImageView.frame.width / 2
-        }
+        
     }
   
     // MARK: - Selector
@@ -109,11 +107,11 @@ class LoginController: UIViewController {
     private func configureUI() {
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = .twitterBlue
+        self.view.backgroundColor = .white
         
         self.view.addSubview(self.logoImageView)
         self.logoImageView.centerX(inView: self.view, topAnchor: self.view.safeAreaLayoutGuide.topAnchor)
-        self.logoImageView.setDimensions(width: 150, height: 150)
+        self.logoImageView.setDimensions(width: 100, height: 100)
         
         let stackView = UIStackView(arrangedSubviews: [self.emailContainerView,
                                                        self.passwordContainerView,

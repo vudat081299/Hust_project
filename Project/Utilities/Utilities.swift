@@ -12,7 +12,8 @@ class Utilities {
         let view = UIView()
         
         let iconImage = UIImageView()
-        iconImage.image = image
+        iconImage.image = image.withRenderingMode(.alwaysTemplate)
+        iconImage.tintColor = .black
         view.addSubview(iconImage)
         iconImage.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 8, paddingBottom: 8, width: 24, height: 24)
         
@@ -25,7 +26,7 @@ class Utilities {
                          paddingRight: 8)
         
         let dividerView = UIView()
-        dividerView.backgroundColor = .white
+        dividerView.backgroundColor = .black
         view.addSubview(dividerView)
         dividerView.anchor(left: iconImage.leftAnchor, bottom: view.bottomAnchor, right: textField.rightAnchor, height: 0.75)
         
@@ -34,9 +35,9 @@ class Utilities {
     
     func textField(withPlaceholder placeholder: String) -> UITextField {
         let textField = UITextField()
-        textField.textColor = .white
+        textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
         return textField
     }
     
