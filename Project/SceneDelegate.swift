@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: scene)
     
         if Auth.auth().currentUser == nil {
-            self.changeRootViewController(view: RegistrationController())
+            self.changeRootViewController(view: UINavigationController(rootViewController: LoginController()))
         } else {
             self.changeRootViewController(view: MainTabBarController())
         }

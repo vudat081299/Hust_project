@@ -170,6 +170,8 @@ class LoginController: UIViewController {
         self.dontHaveAccountButton.centerX(inView: self.view)
         
         loginView.transform = CGAffineTransform(scaleX: 0, y: 0)
+        
+        self.addInputAccessoryForTextFields(textFields: [self.emailTextField, self.passwordTextField], dismissable: true, previousNextable: true)
     }
     
     private func setUpMoveLogo() {
