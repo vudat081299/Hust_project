@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -14,21 +14,8 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cat" translatesAutoresizingMaskIntoConstraints="NO" id="dYr-uK-Kic">
-                                <rect key="frame" x="157" y="403" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Tvw-NE-FuF"/>
-                                    <constraint firstAttribute="width" constant="100" id="tu5-g7-EHI"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="dYr-uK-Kic" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="bty-kP-atS"/>
-                            <constraint firstItem="dYr-uK-Kic" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="xf6-Fn-vyI"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -36,7 +23,4 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="cat" width="865" height="939"/>
-    </resources>
 </document>
