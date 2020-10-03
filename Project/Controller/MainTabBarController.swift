@@ -29,6 +29,7 @@ class MainTabBarController: UITabBarController {
     }()
     
     // MARK: - Lifecycles
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureViewController()

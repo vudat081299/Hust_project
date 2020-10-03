@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ExploreViewController: UIViewController {
+class ExploreViewController: BaseViewController {
 
     // MARK: - Properties
     
@@ -19,7 +19,6 @@ class ExploreViewController: UIViewController {
     
     // MARK: - Helpers
     private func configureViewController() {
-        self.view.backgroundColor = .white
         self.navigationItem.title = "Explore"
     }
 }

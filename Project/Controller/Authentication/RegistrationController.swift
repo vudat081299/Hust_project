@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class RegistrationController: UIViewController {
+class RegistrationController: BaseViewController {
     
     // MARK: - Properties
     private let imagePicker = UIImagePickerController()
@@ -162,8 +162,8 @@ class RegistrationController: UIViewController {
     }
     
     private func configureUI() {
-        self.view.backgroundColor = .white
         
+        // register view contraints
         self.view.addSubview(self.registerView)
         self.registerView.centerX(inView: self.view)
         self.registerView.centerY(inView: self.view, leftAnchor: self.view.leftAnchor, paddingLeft: 32)
@@ -195,6 +195,7 @@ class RegistrationController: UIViewController {
 
 // MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let profileImage = info[.editedImage] as? UIImage else { return }
         self.profileImage = profileImage
@@ -209,4 +210,5 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 }

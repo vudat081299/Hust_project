@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotificationsViewController: UIViewController {
+class NotificationsViewController: BaseViewController {
 
     // MARK: - Properties
     
@@ -19,7 +19,6 @@ class NotificationsViewController: UIViewController {
     
     // MARK: - Helpers
     private func configureViewController() {
-        self.view.backgroundColor = .white
         self.navigationItem.title = "Notifications"
     }
 

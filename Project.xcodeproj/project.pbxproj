@@ -19,6 +19,8 @@
 		FA66C6072523AE2100C31151 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA66C6062523AE2100C31151 /* GoogleService-Info.plist */; };
 		FAA362672524D84A00580FE2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA362662524D84A00580FE2 /* Constants.swift */; };
 		FAA3626C2524EE0500580FE2 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA3626B2524EE0500580FE2 /* AuthService.swift */; };
+		FAF417F92528C96E00FDDC97 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF417F82528C96E00FDDC97 /* BaseViewController.swift */; };
+		FAF417FF2528CA0600FDDC97 /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF417FE2528CA0600FDDC97 /* ViewControllerExtension.swift */; };
 		FAFD58A525208D9C006E4F94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58A425208D9C006E4F94 /* AppDelegate.swift */; };
 		FAFD58A725208D9C006E4F94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58A625208D9C006E4F94 /* SceneDelegate.swift */; };
 		FAFD58AE25208D9C006E4F94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAFD58AD25208D9C006E4F94 /* Assets.xcassets */; };
@@ -68,6 +70,8 @@
 		FA66C6062523AE2100C31151 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FAA362662524D84A00580FE2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAA3626B2524EE0500580FE2 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		FAF417F82528C96E00FDDC97 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		FAF417FE2528CA0600FDDC97 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 		FAFD58A125208D9B006E4F94 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD58A425208D9C006E4F94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAFD58A625208D9C006E4F94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -145,6 +149,23 @@
 				FA66C5E02523829C00C31151 /* RegistrationController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		FAF417F72528C95D00FDDC97 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				FAF417F82528C96E00FDDC97 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		FAF417FD2528C9D700FDDC97 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FA2495BF2523218C0060BECD /* Extension.swift */,
+				FAF417FE2528CA0600FDDC97 /* ViewControllerExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		FAFD589825208D9B006E4F94 = {
@@ -226,6 +247,7 @@
 		FAFD58DB25208ED4006E4F94 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FAF417F72528C95D00FDDC97 /* Base */,
 				FAFD58E225208F9C006E4F94 /* MainTabBarController.swift */,
 				FA66C5DA2523822C00C31151 /* Authentication */,
 				FAFD591125209480006E4F94 /* Feeds */,
@@ -253,7 +275,7 @@
 		FAFD58DE25208EFB006E4F94 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				FA2495BF2523218C0060BECD /* Extension.swift */,
+				FAF417FD2528C9D700FDDC97 /* Extension */,
 				FA66C5F5252393B400C31151 /* Utilities.swift */,
 				FAA362662524D84A00580FE2 /* Constants.swift */,
 			);
@@ -543,6 +565,8 @@
 				FAFD58E825209321006E4F94 /* FeedsViewController.swift in Sources */,
 				FAFD58E325208F9C006E4F94 /* MainTabBarController.swift in Sources */,
 				FA66C5E12523829C00C31151 /* RegistrationController.swift in Sources */,
+				FAF417F92528C96E00FDDC97 /* BaseViewController.swift in Sources */,
+				FAF417FF2528CA0600FDDC97 /* ViewControllerExtension.swift in Sources */,
 				FA2495C02523218C0060BECD /* Extension.swift in Sources */,
 				FAA362672524D84A00580FE2 /* Constants.swift in Sources */,
 			);

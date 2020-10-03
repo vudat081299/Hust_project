@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ConversationsViewController: UIViewController {
+class ConversationsViewController: BaseViewController {
 
     // MARK: - Properties
     
@@ -19,7 +19,6 @@ class ConversationsViewController: UIViewController {
     
     // MARK: - Helpers
     private func configureViewController() {
-        self.view.backgroundColor = .white
         self.navigationItem.title = "Messages"
     }
 }

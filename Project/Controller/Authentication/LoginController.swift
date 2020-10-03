@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginController: UIViewController {
+class LoginController: BaseViewController {
     
     // MARK: - Properties
     
@@ -134,7 +134,6 @@ class LoginController: UIViewController {
         // set up navigation bar
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.isHidden = true
-        self.view.backgroundColor = .white
         
         // content view contraints
         self.view.addSubview(self.loginView)

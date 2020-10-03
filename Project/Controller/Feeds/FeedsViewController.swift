@@ -8,7 +8,7 @@
 import UIKit
 import SDWebImage
 
-class FeedsViewController: UIViewController {
+class FeedsViewController: BaseViewController {
 
     // MARK: - Properties
     
@@ -26,7 +26,6 @@ class FeedsViewController: UIViewController {
     
     // MARK: - Helpers
     private func configureViewController() {
-        self.view.backgroundColor = .white
         guard let logoImage = UIImage(named: "cat") else {
             return
         }
