@@ -6,6 +6,8 @@ target 'Project' do
   use_frameworks!
 
   # Pods for Project
+  
+  pod 'IQKeyboardManagerSwift'
   pod 'SDWebImage', '~> 5.0'
   pod 'Firebase/Analytics'
 	pod 'Firebase/Core'

@@ -15,6 +15,12 @@ class RegistrationController: UIViewController {
     
     var profileImage: UIImage?
     
+    private lazy var registerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .clear
+        return view
+    }()
+    
     private lazy var addPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysTemplate), for: .normal)
@@ -158,26 +164,32 @@ class RegistrationController: UIViewController {
     private func configureUI() {
         self.view.backgroundColor = .white
         
-        self.view.addSubview(self.addPhotoButton)
-        self.addPhotoButton.centerX(inView: self.view, topAnchor: self.view.safeAreaLayoutGuide.topAnchor)
-        self.addPhotoButton.setDimensions(width: 128, height: 128)
+        self.view.addSubview(self.registerView)
+        self.registerView.centerX(inView: self.view)
+        self.registerView.centerY(inView: self.view, leftAnchor: self.view.leftAnchor, paddingLeft: 32)
         
+        self.registerView.addSubview(self.addPhotoButton)
+        self.addPhotoButton.centerX(inView: self.registerView, topAnchor: self.registerView.topAnchor)
+        self.addPhotoButton.setDimensions(width: 128, height: 128)
+
         let stackView = UIStackView(arrangedSubviews: [self.emailContainerView,
                                                        self.passwordContainerView,
                                                        self.fullNameContainerView,
                                                        self.userNameContainerView,
                                                        self.signUpButton])
-        
+
         stackView.axis = .vertical
         stackView.spacing = 20
         stackView.distribution = .fillEqually
-        
-        self.view.addSubview(stackView)
-        stackView.anchor(top: self.addPhotoButton.bottomAnchor, left: self.view.leftAnchor, right: self.view.rightAnchor, paddingTop: 32, paddingLeft: 32, paddingRight: 32)
-        
+
+        self.registerView.addSubview(stackView)
+        stackView.anchor(top: self.addPhotoButton.bottomAnchor, left: self.registerView.leftAnchor, bottom: self.registerView.bottomAnchor, right: self.registerView.rightAnchor, paddingTop: 5)
+
         self.view.addSubview(self.alreadyHaveAccountButton)
         self.alreadyHaveAccountButton.anchor(left: self.view.leftAnchor, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, paddingLeft: 40)
         self.alreadyHaveAccountButton.centerX(inView: self.view)
+        
+        self.addInputAccessoryForTextFields(textFields: [self.emailTextField, self.passwordTextField, self.fullNameTextField, self.usernameTextField], dismissable: true, previousNextable: true)
     }
 }
 
