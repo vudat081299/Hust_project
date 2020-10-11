@@ -15,16 +15,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: scene)
+        
+        self.logOut()
     
         if Auth.auth().currentUser == nil {
-            self.changeRootViewController(view: UINavigationController(rootViewController: LoginController()))
+            self.toLogin(view: UINavigationController(rootViewController: LoginController()))
         } else {
-            self.changeRootViewController(view: MainTabBarController())
+//            self.changeRootViewController(view: MainTabBarController())
+            self.window?.rootViewController = MainTabBarController()
         }
         
         self.window?.makeKeyAndVisible()
     }
 
+    func toLogin(view: UIViewController) {
+        
+        let loginControllerViewModel = LoginViewModel()
+        let loginController = LoginController.create(with: loginControllerViewModel)
+        
+        
+        self.window?.rootViewController = loginController
+    }
+    
     func changeRootViewController(view: UIViewController) {
         self.window?.rootViewController = view
     }

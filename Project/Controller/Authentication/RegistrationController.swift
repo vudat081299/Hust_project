@@ -10,7 +10,11 @@ import Firebase
 
 class RegistrationController: BaseViewController {
     
+    typealias ViewModelType = RegisterViewModel
+
     // MARK: - Properties
+    private var viewModel: ViewModelType!
+
     private let imagePicker = UIImagePickerController()
     
     var profileImage: UIImage?
@@ -60,27 +64,35 @@ class RegistrationController: BaseViewController {
         return view
     }()
     
-    private lazy var emailTextField: UITextField = {
+    private lazy var emailTextField: BindingTextField = {
         let textField = Utilities().textField(withPlaceholder: "Email")
         textField.keyboardType = .emailAddress
         return textField
     }()
     
-    private lazy var passwordTextField: UITextField = {
+    private lazy var passwordTextField: BindingTextField = {
         let textField = Utilities().textField(withPlaceholder: "Password")
         textField.isSecureTextEntry = true
         return textField
     }()
     
-    private lazy var fullNameTextField: UITextField = {
+    private lazy var fullNameTextField: BindingTextField = {
         let textField = Utilities().textField(withPlaceholder: "Full Name")
         textField.keyboardType = .emailAddress
         return textField
     }()
     
-    private lazy var usernameTextField: UITextField = {
+    private lazy var usernameTextField: BindingTextField = {
         let textField = Utilities().textField(withPlaceholder: "Username")
         return textField
+    }()
+    
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let act = UIActivityIndicatorView()
+        act.color = .white
+        act.startAnimating()
+        act.isHidden = true
+        return act
     }()
     
     private lazy var signUpButton: UIButton = {
@@ -107,6 +119,12 @@ class RegistrationController: BaseViewController {
         super.viewDidLoad()
         self.setUpImagePicker()
         self.configureUI()
+        self.configure(with: self.viewModel)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.view.isUserInteractionEnabled = true
     }
     
     override func viewDidLayoutSubviews() {
@@ -125,18 +143,23 @@ class RegistrationController: BaseViewController {
     @objc private func handleSignUp(_ sender: UIButton) {
         
         guard let profileImage = self.profileImage else {
-            print("please select an profile image")
+            self.presentMessage("please select an profile image")
             return
         }
         
-        guard let email = self.emailTextField.text else { return }
-        guard let password = self.passwordTextField.text else { return }
-        guard let fullName = self.fullNameTextField.text else { return }
-        guard let username = self.usernameTextField.text else { return }
+        guard let email = self.viewModel.input.email.value else { return }
+        guard let password = self.viewModel.input.password.value else { return }
+        guard let fullName = self.viewModel.input.fullName.value else { return }
+        guard let username = self.viewModel.input.userName.value else { return }
+        
+        self.view.isUserInteractionEnabled = false
+        self.activityIndicator.isHidden = false
         
         AuthService.shared.registerUser(credentials: AuthCredentials(email: email, password: password, username: username, fullName: fullName, profileImage: profileImage)) { (error, databaseRef) in
             if let error = error {
-                print(error.localizedDescription)
+                self.presentMessage(error.localizedDescription)
+                self.view.isUserInteractionEnabled = true
+                self.activityIndicator.isHidden = true
             }
             self.gotoHomeController()
         }
@@ -155,6 +178,13 @@ class RegistrationController: BaseViewController {
     }
     
     // MARK: - Helpers
+    
+    func configure(with viewModel: ViewModelType) {
+        self.emailTextField.bind(callBack: { viewModel.input.email.value = $0 })
+        self.passwordTextField.bind(callBack: { viewModel.input.password.value = $0 })
+        self.usernameTextField.bind(callBack: { viewModel.input.userName.value = $0 })
+        self.fullNameTextField.bind(callBack: { viewModel.input.password.value = $0 })
+    }
     
     private func setUpImagePicker() {
         self.imagePicker.delegate = self
@@ -185,6 +215,11 @@ class RegistrationController: BaseViewController {
         self.registerView.addSubview(stackView)
         stackView.anchor(top: self.addPhotoButton.bottomAnchor, left: self.registerView.leftAnchor, bottom: self.registerView.bottomAnchor, right: self.registerView.rightAnchor, paddingTop: 5)
 
+        // activity.
+        self.registerView.addSubview(self.activityIndicator)
+        self.activityIndicator.centerY(inView: self.signUpButton)
+        self.activityIndicator.anchor(right: self.signUpButton.rightAnchor, paddingRight: 10, width: 30, height: 30)
+        
         self.view.addSubview(self.alreadyHaveAccountButton)
         self.alreadyHaveAccountButton.anchor(left: self.view.leftAnchor, bottom: self.view.safeAreaLayoutGuide.bottomAnchor, paddingLeft: 40)
         self.alreadyHaveAccountButton.centerX(inView: self.view)
@@ -211,4 +246,12 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         self.dismiss(animated: true, completion: nil)
     }
     
+}
+
+extension RegistrationController {
+    static func create(with viewModel: ViewModelType) -> UIViewController {
+        let vc = RegistrationController()
+        vc.viewModel = viewModel
+        return vc
+    }
 }

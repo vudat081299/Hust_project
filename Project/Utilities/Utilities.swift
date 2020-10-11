@@ -9,6 +9,7 @@ import UIKit
 
 class Utilities {
     func inputContainerView(image: UIImage, textField: UITextField) -> UIView {
+        
         let view = UIView()
         
         let iconImage = UIImageView()
@@ -26,22 +27,26 @@ class Utilities {
                          paddingRight: 8)
         
         let dividerView = UIView()
-        dividerView.backgroundColor = .black
+        dividerView.backgroundColor = .darkGray
         view.addSubview(dividerView)
         dividerView.anchor(left: iconImage.leftAnchor, bottom: view.bottomAnchor, right: textField.rightAnchor, height: 0.75)
         
         return view
+        
     }
     
-    func textField(withPlaceholder placeholder: String) -> UITextField {
-        let textField = UITextField()
+    func textField(withPlaceholder placeholder: String) -> BindingTextField {
+        
+        let textField = BindingTextField()
         textField.textColor = .black
         textField.font = UIFont.systemFont(ofSize: 16)
-        textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.darkGray])
+        textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
         return textField
+        
     }
     
     func attributeButton(_ firstPart: String, _ secondPart: String) -> UIButton {
+        
         let button = UIButton(type: .system)
         
         let attributedTitle = NSMutableAttributedString(string: firstPart, attributes: [NSMutableAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSMutableAttributedString.Key.foregroundColor: UIColor.darkGray])
@@ -51,5 +56,6 @@ class Utilities {
         button.setAttributedTitle(attributedTitle, for: .normal)
         
         return button
+        
     }
 }
