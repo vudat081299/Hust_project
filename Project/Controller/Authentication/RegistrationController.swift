@@ -150,7 +150,7 @@ class RegistrationController: BaseViewController {
         guard let email = self.viewModel.input.email.value else { return }
         guard let password = self.viewModel.input.password.value else { return }
         guard let fullName = self.viewModel.input.fullName.value else { return }
-        guard let username = self.viewModel.input.userName.value else { return }
+        guard let username = self.viewModel.input.userName.value?.lowercased() else { return }
         
         self.view.isUserInteractionEnabled = false
         self.activityIndicator.isHidden = false
