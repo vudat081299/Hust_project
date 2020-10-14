@@ -24,7 +24,7 @@ class BaseViewController: UIViewController {
     
     // MARK: - Helpers
     
-    private func configureView() {
+    func configureView() {
         self.view.backgroundColor = .white
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleResignFirstResponder)))
     }

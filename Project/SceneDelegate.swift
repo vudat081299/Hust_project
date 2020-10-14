@@ -14,9 +14,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
-        self.window = UIWindow(windowScene: scene)
         
-        self.logOut()
+        self.window = UIWindow(windowScene: scene)
     
         if Auth.auth().currentUser == nil {
             self.toLogin(view: UINavigationController(rootViewController: LoginController()))
@@ -29,11 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func toLogin(view: UIViewController) {
-        
         let loginControllerViewModel = LoginViewModel()
         let loginController = LoginController.create(with: loginControllerViewModel)
-        
-        
         self.window?.rootViewController = loginController
     }
     

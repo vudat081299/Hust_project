@@ -31,6 +31,7 @@ class FeedsViewController: BaseViewController {
         }
         let imageView = UIImageView(image: logoImage)
         imageView.contentMode = .scaleAspectFit
+        imageView.setDimensions(width: 44, height: 44)
         self.navigationItem.titleView = imageView
     }
     
