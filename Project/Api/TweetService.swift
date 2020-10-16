@@ -25,7 +25,12 @@ struct TweetService {
                      "retweets": 0,
                      "caption": caption] as [String: Any]
         
-        REF_TWEETS.childByAutoId().updateChildValues(values, withCompletionBlock: completion)
+        let ref = REF_TWEETS.childByAutoId()
+        
+        ref.updateChildValues(values) { (error, ref) in
+            guard let tweetId = ref.key else { return }
+            REF_USER_TWEETS.child(uid).updateChildValues([tweetId: 1], withCompletionBlock: completion)
+        }
     }
     
     func fetchTweet(completion: @escaping ([Tweet]) -> ()) {
@@ -42,6 +47,25 @@ struct TweetService {
                 completion(tweets)
             }
             
+        }
+    }
+    
+    func fetchTweets(forUser user: User, completion: @escaping ([Tweet]) -> ()) {
+        var tweets = [Tweet]()
+        REF_USER_TWEETS.child(user.uid).observe(.childAdded) { (snapshot) in
+            let tweetId = snapshot.key
+            REF_TWEETS.child(tweetId).observeSingleEvent(of: .value) { (snapshot) in
+                guard let dictionary = snapshot.value as? [String: Any] else { return }
+                guard let uid = dictionary["uid"] as? String else { return }
+                let tweetId = snapshot.key
+                
+                UserService.shared.fetchUser(userId: uid) { user in
+                    guard let user = user else { return }
+                    let tweet = Tweet(user: user, tweetId: tweetId, dictionary: dictionary)
+                    tweets.append(tweet)
+                    completion(tweets)
+                }
+            }
         }
     }
     

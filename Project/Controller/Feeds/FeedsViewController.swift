@@ -37,6 +37,12 @@ class FeedsViewController: UICollectionViewController {
         self.fetchTweet()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.barStyle = .default
+    }
+    
     // MARK: - Helpers
     
     private func fetchTweet() {
@@ -91,6 +97,7 @@ extension FeedsViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIden, for: indexPath) as? TweetCell else { return TweetCell() }
         cell.tweet = self.tweets[indexPath.item]
+        cell.delegate = self
         return cell
     }
 }
@@ -102,3 +109,11 @@ extension FeedsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - TweetCellDelegate
+extension FeedsViewController: TweetCellDelegate {
+    func handleProfileImageTapped(_ cell: TweetCell, at indexpath: IndexPath) {
+        guard let user = cell.tweet?.user else { return }
+        let profileComtroller = ProfileController(user)
+        self.navigationController?.pushViewController(profileComtroller, animated: true)
+    }
+}

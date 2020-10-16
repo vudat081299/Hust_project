@@ -7,6 +7,39 @@
 
 import UIKit
 
+extension UIResponder {
+    
+    /// - Returns: Returns the next responder in the responder chain cast to the given type, or if nil, recurses the chain until the next responder is nil or castable.
+    func next<U: UIResponder>(of type: U.Type = U.self) -> U? {
+        return self.next.flatMap({ $0 as? U ?? $0.next() })
+    }
+}
+
+extension UITableViewCell {
+    var tableView: UITableView? {
+        return self.next(of: UITableView.self)
+    }
+
+    var indexPath: IndexPath? {
+        return self.tableView?.indexPath(for: self)
+    }
+}
+
+
+extension UICollectionViewCell {
+    var collectionView: UICollectionView? {
+        return self.next(of: UICollectionView.self)
+    }
+
+    var indexPath: IndexPath? {
+        return self.collectionView?.indexPath(for: self)
+    }
+}
+
+protocol TweetCellDelegate: class {
+    func handleProfileImageTapped(_ cell: TweetCell, at indexpath: IndexPath)
+}
+
 class TweetCell: UICollectionViewCell {
     
     // MARK: - Properties
@@ -17,12 +50,15 @@ class TweetCell: UICollectionViewCell {
         }
     }
     
+    weak var delegate: TweetCellDelegate?
+    
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .twitterBlue
         imageView.setDimensions(width: 48, height: 48)
         imageView.layer.cornerRadius = 48 / 2
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleShowProfile(_:))))
         return imageView
     }()
     
@@ -85,6 +121,11 @@ class TweetCell: UICollectionViewCell {
     }
     
     // MARK: - Selectors
+    
+    @objc private func handleShowProfile(_ sender: UIImageView) {
+        guard let indexPath = self.indexPath else { return }
+        self.delegate?.handleProfileImageTapped(self, at: indexPath)
+    }
     
     @objc private func handleComment(_ sender: UIButton) {
         
