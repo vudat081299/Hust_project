@@ -16,14 +16,14 @@ class ProfileController: UICollectionViewController {
     private var tweets = [Tweet]() {
         didSet {
             
-            DispatchQueue.main.async {
-                self.collectionView.reloadSections(IndexSet(integer: 0))
-            }
+         
+                self.collectionView.reloadData()
+            
             
         }
     }
     
-    private let user: User?
+    private var user: User?
     
     // MARK: - Lifecycles
     
@@ -47,6 +47,8 @@ class ProfileController: UICollectionViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.barStyle = .black
         self.navigationController?.navigationBar.isHidden = true
+        self.checkIfUserIsFollowing()
+        self.fetchUserStats()
     }
     
     // MARK: - Selectors
@@ -57,6 +59,28 @@ class ProfileController: UICollectionViewController {
         guard let user = self.user else { return }
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             self.tweets = tweets
+        }
+    }
+    
+    private func checkIfUserIsFollowing() {
+        guard let user = self.user else { return }
+        UserService.shared.checkFollowUser(uid: user.uid) { [weak self] isFollowed in
+            guard let `self` = self else { return }
+            self.user?.isFollowed = isFollowed
+            
+                self.collectionView.reloadData()
+            
+        }
+    }
+    
+    private func fetchUserStats() {
+        guard let user = self.user else { return }
+        UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
+            guard let `self` = self else { return }
+            self.user?.stats = stats
+           
+                self.collectionView.reloadData()
+            
         }
     }
     
@@ -121,7 +145,35 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileController: ProfileHeaderViewDelegate {
+    
+    func handleEditFollowProfile(_ view: ProfileHeaderView) {
+        
+        guard let user = self.user else { return }
+        
+        if user.isCurrentUser {
+            return
+        }
+        
+        if user.isFollowed {
+            UserService.shared.unfollowUser(uid: user.uid) { (error, ref) in
+                self.user?.isFollowed = false
+               
+                    self.collectionView.reloadData()
+                
+            }
+        } else {
+            UserService.shared.followUser(uid: user.uid) { (error, ref) in
+                self.user?.isFollowed = true
+               
+                    self.collectionView.reloadData()
+                
+            }
+        }
+        
+    }
+    
     func profileHeaderView(dissmiss view: ProfileHeaderView) {
         self.navigationController?.popViewController(animated: true)
     }
+    
 }

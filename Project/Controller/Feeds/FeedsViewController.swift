@@ -17,9 +17,8 @@ class FeedsViewController: UICollectionViewController {
     private var tweets = [Tweet]() {
         didSet {
             
-            DispatchQueue.main.async {
                 self.collectionView.reloadData()
-            }
+            
             
         }
     }

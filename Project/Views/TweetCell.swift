@@ -65,7 +65,6 @@ class TweetCell: UICollectionViewCell {
     private let captionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "test"
         label.numberOfLines = 0
         return label
     }()
@@ -182,7 +181,7 @@ class TweetCell: UICollectionViewCell {
                              height: 1)
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
-        infoLabel.text = "something"
+        
     }
     
     private func configureData() {

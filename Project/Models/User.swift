@@ -14,6 +14,9 @@ struct User {
     let fullName: String
     let username: String
     let profileImageUrl: String
+    var stats: UserRelationStats?
+    
+    var isFollowed: Bool = false
     
     var isCurrentUser: Bool {
         return Auth.auth().currentUser?.uid == self.uid
@@ -23,8 +26,14 @@ struct User {
         self.uid = uid
         self.email = dictionary["email"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? ""
-        self.username = dictionary["username"] as? String ?? ""
+        let username = dictionary["username"] as? String ?? ""
+        self.username = username.lowercased()
         self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""
     }
     
+}
+
+struct UserRelationStats {
+    let followers: Int
+    let following: Int
 }

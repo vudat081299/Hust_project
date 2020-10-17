@@ -9,6 +9,7 @@ import UIKit
 
 protocol ProfileHeaderViewDelegate: class {
     func profileHeaderView(dissmiss view: ProfileHeaderView)
+    func handleEditFollowProfile(_ view: ProfileHeaderView)
 }
 
 class ProfileHeaderView: UICollectionReusableView {
@@ -49,7 +50,7 @@ class ProfileHeaderView: UICollectionReusableView {
         return imageview
     }()
     
-    private lazy var editProfileFollowButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Follow", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
@@ -174,7 +175,7 @@ class ProfileHeaderView: UICollectionReusableView {
     }
     
     @objc private func handleEditFollow(_ sender: UIButton) {
-        
+        self.delegate?.handleEditFollowProfile(self)
     }
     
     @objc private func handleFollowing(_ sender: UILabel) {
