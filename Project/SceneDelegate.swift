@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if Auth.auth().currentUser == nil {
             self.toLogin(view: UINavigationController(rootViewController: LoginController()))
         } else {
-//            self.changeRootViewController(view: MainTabBarController())
             self.window?.rootViewController = MainTabBarController()
         }
         
