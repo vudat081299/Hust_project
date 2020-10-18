@@ -16,10 +16,7 @@ class FeedsViewController: UICollectionViewController {
     
     private var tweets = [Tweet]() {
         didSet {
-            
-                self.collectionView.reloadData()
-            
-            
+            self.collectionView.reloadData()
         }
     }
     
@@ -84,7 +81,10 @@ class FeedsViewController: UICollectionViewController {
 
 // MARK: - UICollectionViewDelegate
 extension FeedsViewController {
-    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = TweetController(self.tweets[indexPath.item])
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -104,12 +104,23 @@ extension FeedsViewController {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension FeedsViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.collectionView.frame.width, height: 120)
+        let tweet = self.tweets[indexPath.item]
+        let viewModel = TweetViewModel(tweet)
+        let height = viewModel.size(forWidth: self.collectionView.frame.width).height
+        return CGSize(width: self.collectionView.frame.width, height: height + 72)
     }
 }
 
 // MARK: - TweetCellDelegate
 extension FeedsViewController: TweetCellDelegate {
+    func handleReplyTapped(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else { return }
+        let uploadTweetController = UploadTweetController(config: .reply(tweet), user: tweet.user)
+        let nav = UINavigationController(rootViewController: uploadTweetController)
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true, completion: nil)
+    }
+    
     func handleProfileImageTapped(_ cell: TweetCell, at indexpath: IndexPath) {
         guard let user = cell.tweet?.user else { return }
         let profileComtroller = ProfileController(user)

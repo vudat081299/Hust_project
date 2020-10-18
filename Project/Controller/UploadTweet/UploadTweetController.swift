@@ -7,11 +7,16 @@
 
 import UIKit
 
+
 class UploadTweetController: BaseViewController {
     
     // MARK: - Properties
     
     private let user: User
+    
+    private let config: UploadTweetConfiguration
+    
+    private lazy var viewModel = UploadTweetViewModel(self.config)
     
     private lazy var uploadButton: UIButton = {
         let button = UIButton(type: .system)
@@ -33,6 +38,13 @@ class UploadTweetController: BaseViewController {
         return imageView
     }()
     
+    let replyLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .lightGray
+        return label
+    }()
+    
     private let captionTextView = CaptionTextView()
     
     // MARK: - Lifecycle
@@ -43,8 +55,9 @@ class UploadTweetController: BaseViewController {
     
     // MARK: - Selectors
     
-    init(user: User) {
+    init(config: UploadTweetConfiguration, user: User) {
         self.user = user
+        self.config = config
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,7 +71,7 @@ class UploadTweetController: BaseViewController {
     
     @objc private func handleUpload(_ sender: UIButton) {
         guard let caption = self.captionTextView.text else { return }
-        TweetService.shared.upload(caption: caption) { [weak self] error, data in
+        TweetService.shared.upload(caption: caption, type: self.config) { [weak self] error, data in
             guard let `self` = self else { return }
             if let error = error {
                 print(error.localizedDescription)
@@ -75,6 +88,13 @@ class UploadTweetController: BaseViewController {
     override func configureView() {
         super.configureView()
         self.configureUI()
+        
+        switch self.config {
+        case .tweet:
+            print("tweet")
+        case .reply(let tweet):
+            print("reply")
+        }
     }
     
     /// set up navigation bar.
@@ -91,21 +111,33 @@ class UploadTweetController: BaseViewController {
     private func configureUI() {
         self.configureNavigationBar()
         
-        let stackView = UIStackView(arrangedSubviews: [self.profileImageView, self.captionTextView])
-        stackView.axis = .horizontal
-        stackView.spacing = 12
+        let imageCaptionStack = UIStackView(arrangedSubviews: [self.profileImageView, self.captionTextView])
+        imageCaptionStack.axis = .horizontal
+        imageCaptionStack.alignment = .leading
+        imageCaptionStack.spacing = 12
         
-        self.view.addSubview(stackView)
+        let stack = UIStackView(arrangedSubviews: [self.replyLabel, imageCaptionStack])
+        stack.axis = .vertical
+        stack.spacing = 12
         
-        stackView.anchor(top: self.view.safeAreaLayoutGuide.topAnchor,
-                         left: self.view.leftAnchor,
-                         right: self.view.rightAnchor,
-                         paddingTop: 16,
-                         paddingLeft: 16,
-                         paddingRight: 16)
+        self.view.addSubview(stack)
+        
+        stack.anchor(top: self.view.safeAreaLayoutGuide.topAnchor,
+                     left: self.view.leftAnchor,
+                     right: self.view.rightAnchor,
+                     paddingTop: 16,
+                     paddingLeft: 16,
+                     paddingRight: 16)
         
         guard let url = URL(string: self.user.profileImageUrl) else { return }
         self.profileImageView.sd_setImage(with: url, completed: nil)
+        
+        self.uploadButton.setTitle(self.viewModel.actionButtonText, for: .normal)
+        self.captionTextView.placeHolderLabel.text = self.viewModel.placeholderText
+        
+        self.replyLabel.isHidden = !self.viewModel.shouldShowReplyLabel
+        guard let text = self.viewModel.reply else { return }
+        self.replyLabel.text = text
     }
 
 }

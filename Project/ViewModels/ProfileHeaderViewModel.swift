@@ -64,7 +64,7 @@ struct ProfileHeaderViewModel {
         self.user = user
     }
     
-    func attributeText(withValue value: Int, text: String) -> NSAttributedString {
+    private func attributeText(withValue value: Int, text: String) -> NSAttributedString {
         
         let attributeString = NSMutableAttributedString(string: "\(value)", attributes: [.font: UIFont.boldSystemFont(ofSize: 14),
                                                                                          .foregroundColor: UIColor.black])
@@ -74,4 +74,5 @@ struct ProfileHeaderViewModel {
         
         return attributeString
     }
+    
 }

@@ -38,6 +38,7 @@ extension UICollectionViewCell {
 
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCell, at indexpath: IndexPath)
+    func handleReplyTapped(_ cell: TweetCell)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -127,7 +128,7 @@ class TweetCell: UICollectionViewCell {
     }
     
     @objc private func handleComment(_ sender: UIButton) {
-        
+        self.delegate?.handleReplyTapped(self)
     }
     
     @objc private func handleRetweet(_ sender: UIButton) {

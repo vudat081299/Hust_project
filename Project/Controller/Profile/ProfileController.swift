@@ -15,11 +15,7 @@ class ProfileController: UICollectionViewController {
     
     private var tweets = [Tweet]() {
         didSet {
-            
-         
-                self.collectionView.reloadData()
-            
-            
+            self.collectionView.reloadData()
         }
     }
     
@@ -141,6 +137,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.collectionView.frame.width, height: 120)
     }
+    
 }
 
 // MARK: - ProfileHeaderViewDelegate
