@@ -45,6 +45,16 @@ class FeedsViewController: UICollectionViewController {
         TweetService.shared.fetchTweet { [weak self] tweets in
             guard let `self` = self else { return }
             self.tweets = tweets
+            self.checkIfUserLikeTweet(tweets)
+        }
+    }
+    
+    private func checkIfUserLikeTweet(_ tweets: [Tweet]) {
+        for (index, tweet) in tweets.enumerated() {
+            TweetService.shared.checkIfUserLikeTweet(tweet: tweet) { didLike in
+                guard didLike == true else { return }
+                self.tweets[index].didLike = true
+            }
         }
     }
     
@@ -119,6 +129,15 @@ extension FeedsViewController: TweetCellDelegate {
         let nav = UINavigationController(rootViewController: uploadTweetController)
         nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: true, completion: nil)
+    }
+    
+    func handleLikeTweet(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else { return }
+        TweetService.shared.likeTweet(tweet: tweet) { (err, ref) in
+            cell.tweet?.didLike.toggle()
+            let likes = tweet.didLike ? ((tweet.likes - 1) < 0 ? 0 : (tweet.likes - 1)) : tweet.likes + 1
+            cell.tweet?.likes = likes
+        }
     }
     
     func handleProfileImageTapped(_ cell: TweetCell, at indexpath: IndexPath) {

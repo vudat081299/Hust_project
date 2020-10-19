@@ -8,7 +8,7 @@
 import Foundation
 import Firebase
 
-typealias DatabaseCompletion = ((Error?, DatabaseReference) -> ())
+public typealias DatabaseCompletion = ((Error?, DatabaseReference) -> ())
 
 struct UserService {
     static let shared = UserService()

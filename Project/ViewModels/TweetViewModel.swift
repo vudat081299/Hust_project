@@ -72,7 +72,15 @@ struct TweetViewModel {
         
         return attributeString
     }
- 
+    
+    var likeButtonTintColor: UIColor {
+        return self.tweet.didLike ? .red : .lightGray
+    }
+    
+    var likeButtonImage: UIImage? {
+        let imageName = self.tweet.didLike ? "like_filled" : "like"
+        return UIImage(named: imageName)
+    }
     
     func size(forWidth width: CGFloat) -> CGSize {
         

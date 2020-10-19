@@ -39,6 +39,7 @@ extension UICollectionViewCell {
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCell, at indexpath: IndexPath)
     func handleReplyTapped(_ cell: TweetCell)
+    func handleLikeTweet(_ cell: TweetCell)
 }
 
 class TweetCell: UICollectionViewCell {
@@ -136,7 +137,7 @@ class TweetCell: UICollectionViewCell {
     }
     
     @objc private func handleLike(_ sender: UIButton) {
-        
+        self.delegate?.handleLikeTweet(self)
     }
     
     @objc private func handleShare(_ sender: UIButton) {
@@ -194,5 +195,9 @@ class TweetCell: UICollectionViewCell {
     
         self.profileImageView.sd_setImage(with: tweetViewModel.profileImageUrl, completed: nil)
         infoLabel.attributedText = tweetViewModel.userInfoText
+        
+        self.likeButton.tintColor = tweetViewModel.likeButtonTintColor
+        
+        self.likeButton.setImage(tweetViewModel.likeButtonImage, for: .normal)
     }
 }
