@@ -36,6 +36,7 @@ struct AuthService {
                     
                     if let error = error {
                         print("[DEBUG] error: \(error.localizedDescription)")
+                        completion(error, DatabaseReference())
                         return
                     }
                     

@@ -147,10 +147,10 @@ class RegistrationController: BaseViewController {
             return
         }
         
-        guard let email = self.viewModel.input.email.value else { return }
-        guard let password = self.viewModel.input.password.value else { return }
-        guard let fullName = self.viewModel.input.fullName.value else { return }
-        guard let username = self.viewModel.input.userName.value?.lowercased() else { return }
+        guard let email = self.emailTextField.text else { return }
+        guard let password = self.passwordTextField.text else { return }
+        guard let fullName = self.fullNameTextField.text else { return }
+        guard let username = self.usernameTextField.text?.lowercased() else { return }
         
         self.view.isUserInteractionEnabled = false
         self.activityIndicator.isHidden = false
@@ -160,8 +160,9 @@ class RegistrationController: BaseViewController {
                 self.presentMessage(error.localizedDescription)
                 self.view.isUserInteractionEnabled = true
                 self.activityIndicator.isHidden = true
+            } else {
+                self.gotoHomeController()
             }
-            self.gotoHomeController()
         }
         
     }
