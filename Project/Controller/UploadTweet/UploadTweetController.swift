@@ -77,6 +77,11 @@ class UploadTweetController: BaseViewController {
                 print(error.localizedDescription)
                 return
             }
+            
+            if case .reply(let tweet) = self.config {
+                NotificationService.shared.uploadNotification(.reply, tweet: tweet)
+            }
+            
             self.dismiss(animated: true, completion: nil)
         }
     }

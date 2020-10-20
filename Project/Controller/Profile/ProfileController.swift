@@ -154,16 +154,16 @@ extension ProfileController: ProfileHeaderViewDelegate {
         if user.isFollowed {
             UserService.shared.unfollowUser(uid: user.uid) { (error, ref) in
                 self.user?.isFollowed = false
-               
-                    self.collectionView.reloadData()
+                
+                self.collectionView.reloadData()
                 
             }
         } else {
             UserService.shared.followUser(uid: user.uid) { (error, ref) in
                 self.user?.isFollowed = true
-               
-                    self.collectionView.reloadData()
                 
+                self.collectionView.reloadData()
+                NotificationService.shared.uploadNotification(.follow, user: self.user)
             }
         }
         
