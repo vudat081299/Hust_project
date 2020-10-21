@@ -13,9 +13,26 @@ private let collectionHeaderIden = "ProfileHeaderView"
 class ProfileController: UICollectionViewController {
     // MARK: - Properties
     
-    private var tweets = [Tweet]() {
+    private var selectedFilter: ProfileFilterOptions = .tweets {
         didSet {
             self.collectionView.reloadData()
+        }
+    }
+    
+    private var tweets = [Tweet]()
+    
+    private var likedTweets = [Tweet]()
+    
+    private var replyTweet = [Tweet]()
+    
+    private var currentDataSource: [Tweet] {
+        switch self.selectedFilter {
+        case .tweets:
+            return self.tweets
+        case .likes:
+            return self.likedTweets
+        case .replies:
+            return self.replyTweet
         }
     }
     
@@ -37,6 +54,8 @@ class ProfileController: UICollectionViewController {
         super.viewDidLoad()
         self.configureCollectionView()
         self.fetchTweets()
+        self.fetchLikeTweets()
+        self.fetchReply()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,8 +72,26 @@ class ProfileController: UICollectionViewController {
     
     private func fetchTweets() {
         guard let user = self.user else { return }
-        TweetService.shared.fetchTweets(forUser: user) { tweets in
-            self.tweets = tweets
+        TweetService.shared.fetchTweets(forUser: user) { [weak self] in
+            guard let `self` = self else { return }
+            self.tweets = $0;
+            self.collectionView.reloadData()
+        }
+    }
+    
+    private func fetchLikeTweets() {
+        guard let user = self.user else { return }
+        TweetService.shared.fetchLike(forUser: user) { [weak self]  in
+            guard let `self` = self else { return }
+            self.likedTweets = $0
+        }
+    }
+    
+    private func fetchReply() {
+        guard let user = self.user else { return }
+        TweetService.shared.fetchReply(forUser: user) { [weak self] in
+            guard let `self` = self else { return }
+            self.replyTweet = $0
         }
     }
     
@@ -63,9 +100,7 @@ class ProfileController: UICollectionViewController {
         UserService.shared.checkFollowUser(uid: user.uid) { [weak self] isFollowed in
             guard let `self` = self else { return }
             self.user?.isFollowed = isFollowed
-            
-                self.collectionView.reloadData()
-            
+            self.collectionView.reloadData()
         }
     }
     
@@ -74,8 +109,8 @@ class ProfileController: UICollectionViewController {
         UserService.shared.fetchUserStats(uid: user.uid) { [weak self] stats in
             guard let `self` = self else { return }
             self.user?.stats = stats
-           
-                self.collectionView.reloadData()
+            
+            self.collectionView.reloadData()
             
         }
     }
@@ -89,13 +124,19 @@ class ProfileController: UICollectionViewController {
         
         self.collectionView.register(TweetCell.self, forCellWithReuseIdentifier: cellIden)
         self.collectionView.register(ProfileHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: collectionHeaderIden)
+        
+        guard let tabBarHeight = self.tabBarController?.tabBar.frame.height else { return }
+        self.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: tabBarHeight, right: 0)
     }
     
 }
 
 // MARK: - UICollectionViewDelegate
 extension ProfileController {
-    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let controller = TweetController(self.currentDataSource[indexPath.item])
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -115,14 +156,14 @@ extension ProfileController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.tweets.count
+        return self.currentDataSource.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIden, for: indexPath) as? TweetCell else {
             return TweetCell()
         }
-        cell.tweet = self.tweets[indexPath.item]
+        cell.tweet = self.currentDataSource[indexPath.item]
         return cell
     }
 }
@@ -142,6 +183,10 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - ProfileHeaderViewDelegate
 extension ProfileController: ProfileHeaderViewDelegate {
+    
+    func didSelect(filter: ProfileFilterOptions) {
+        self.selectedFilter = filter
+    }
     
     func handleEditFollowProfile(_ view: ProfileHeaderView) {
         

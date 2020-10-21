@@ -57,7 +57,16 @@ struct TweetViewModel {
     var caption: String {
         return self.tweet.caption
     }
+    
+    var shouldHideReplyLabel: Bool {
+        return !self.tweet.isReply
+    }
 
+    var replyText: String? {
+        guard let replyingTo = self.tweet.replyingTo else { return nil }
+        return "→ replying to @\(replyingTo)"
+    }
+    
     init(_ tweet: Tweet) {
         self.tweet = tweet
     }

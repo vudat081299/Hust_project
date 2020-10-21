@@ -26,7 +26,7 @@ class ProfileFilterCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            self.titleLabel.font = self.isSelected ? UIFont.boldSystemFont(ofSize: 16) : UIFont.systemFont(ofSize: 14)
+            self.titleLabel.font = self.isSelected ? UIFont.boldSystemFont(ofSize: 14) : UIFont.systemFont(ofSize: 14)
             self.titleLabel.textColor = self.isSelected ? .twitterBlue : .lightGray
         }
     }

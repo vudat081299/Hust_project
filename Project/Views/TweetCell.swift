@@ -107,6 +107,13 @@ class TweetCell: UICollectionViewCell {
         return button
     }()
     
+    private let replyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+    
     private let infoLabel = UILabel()
     
     // MARK: - Lifecycle
@@ -147,21 +154,28 @@ class TweetCell: UICollectionViewCell {
     // MARK: - Helpers
     
     private func configureUI() {
-        self.contentView.addSubview(profileImageView)
-        profileImageView.anchor(top: self.contentView.topAnchor,
-                                left: self.contentView.leftAnchor,
-                                paddingTop: 8,
-                                paddingLeft: 8)
         
-        let stackView = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
+        
+        let captionStackView = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
+        captionStackView.axis = .vertical
+        captionStackView.distribution = .fillProportionally
+        captionStackView.spacing = 4
+        
+        let imageCaptionStack = UIStackView(arrangedSubviews: [self.profileImageView, captionStackView])
+        imageCaptionStack.distribution = .fillProportionally
+        imageCaptionStack.spacing = 12
+        imageCaptionStack.alignment = .leading
+        
+        let stackView = UIStackView(arrangedSubviews: [self.replyLabel, imageCaptionStack])
         stackView.axis = .vertical
+        stackView.spacing = 8
         stackView.distribution = .fillProportionally
-        stackView.spacing = 4
         
         self.contentView.addSubview(stackView)
-        stackView.anchor(top: self.profileImageView.topAnchor,
-                         left: self.profileImageView.rightAnchor,
+        stackView.anchor(top: self.contentView.topAnchor,
+                         left: self.contentView.leftAnchor,
                          right: self.contentView.rightAnchor,
+                         paddingTop: 4,
                          paddingLeft: 12,
                          paddingRight: 12)
         
@@ -199,5 +213,9 @@ class TweetCell: UICollectionViewCell {
         self.likeButton.tintColor = tweetViewModel.likeButtonTintColor
         
         self.likeButton.setImage(tweetViewModel.likeButtonImage, for: .normal)
+        
+        self.replyLabel.isHidden = tweetViewModel.shouldHideReplyLabel
+        
+        self.replyLabel.text = tweetViewModel.replyText
     }
 }

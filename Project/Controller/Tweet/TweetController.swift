@@ -41,6 +41,12 @@ class TweetController: UICollectionViewController {
         self.fetchReplies()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+        self.navigationController?.navigationBar.barStyle = .default
+    }
+    
     // MARK: - Selectors
     
     // MARK: - API

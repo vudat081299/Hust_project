@@ -10,6 +10,7 @@ import UIKit
 protocol ProfileHeaderViewDelegate: class {
     func profileHeaderView(dissmiss view: ProfileHeaderView)
     func handleEditFollowProfile(_ view: ProfileHeaderView)
+    func didSelect(filter: ProfileFilterOptions)
 }
 
 class ProfileHeaderView: UICollectionReusableView {
@@ -83,12 +84,6 @@ class ProfileHeaderView: UICollectionReusableView {
         return label
     }()
     
-    private lazy var underLineView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .twitterBlue
-        return view
-    }()
-    
     private let followingLabel: UILabel = {
         let label = UILabel()
         label.isUserInteractionEnabled = true
@@ -148,12 +143,7 @@ class ProfileHeaderView: UICollectionReusableView {
                          bottom: self.bottomAnchor,
                          right: self.rightAnchor,
                          height: 50)
-        
-        self.addSubview(self.underLineView)
-        underLineView.anchor(left: self.leftAnchor,
-                             bottom: self.bottomAnchor,
-                             width: self.frame.width / CGFloat(ProfileFilterOptions.allCases.count),
-                             height: 2)
+    
     }
     
     required init?(coder: NSCoder) {
@@ -207,17 +197,7 @@ class ProfileHeaderView: UICollectionReusableView {
 // MARK: - ProfileFilterViewDelegate
 extension ProfileHeaderView: ProfileFilterViewDelegate {
     func filterView(_ filterView: ProfileFilterView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = filterView.filterCollectionView.cellForItem(at: indexPath) as? ProfileFilterCell else {
-            return
-        }
-        
-        let xPos = cell.frame.origin.x
-        
-        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
-            self.underLineView.frame.origin.x = xPos
-        } completion: { (success) in
-            
-        }
-
+        guard let filter = ProfileFilterOptions(rawValue: indexPath.item) else { return }
+        self.delegate?.didSelect(filter: filter)
     }
 }

@@ -143,6 +143,13 @@ class TweetHeader: UICollectionReusableView {
         return button
     }()
     
+    private let replyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
+    }()
+    
     // MARK: - Lifecycle
     
     override init(frame: CGRect) {
@@ -154,9 +161,14 @@ class TweetHeader: UICollectionReusableView {
         labelStack.axis = .vertical
         labelStack.spacing = -6
         
-        let stack = UIStackView(arrangedSubviews: [self.profileImageView, labelStack])
-        stack.axis = .horizontal
-        stack.spacing = 12
+        let imageCaption = UIStackView(arrangedSubviews: [self.profileImageView, labelStack])
+        imageCaption.axis = .horizontal
+        imageCaption.spacing = 12
+        
+        let stack = UIStackView(arrangedSubviews: [self.replyLabel, imageCaption])
+        stack.axis = .vertical
+        stack.spacing = 8
+        stack.distribution = .fillProportionally
         
         self.addSubview(stack)
         stack.anchor(top: self.topAnchor, left: self.leftAnchor, paddingTop: 16, paddingLeft: 16)
@@ -255,6 +267,8 @@ class TweetHeader: UICollectionReusableView {
         self.likeButton.setImage(viewModel.likeButtonImage, for: .normal)
         self.likeButton.tintColor = viewModel.likeButtonTintColor
         
+        self.replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        self.replyLabel.text = viewModel.replyText
     }
     
 }

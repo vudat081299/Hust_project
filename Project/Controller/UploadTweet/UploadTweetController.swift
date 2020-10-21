@@ -93,13 +93,6 @@ class UploadTweetController: BaseViewController {
     override func configureView() {
         super.configureView()
         self.configureUI()
-        
-        switch self.config {
-        case .tweet:
-            print("tweet")
-        case .reply(let tweet):
-            print("reply")
-        }
     }
     
     /// set up navigation bar.

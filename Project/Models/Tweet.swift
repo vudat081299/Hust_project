@@ -15,10 +15,19 @@ struct Tweet {
     let retweets: Int
     var user: User!
     var didLike = false
+    var replyingTo: String?
+    
+    var isReply: Bool {
+        return self.replyingTo != nil
+    }
     
     init(user: User, tweetId: String, dictionary: [String: Any]) {
         self.tweetId = tweetId
         self.user = user
+        
+        if let replyingTo = dictionary["replyingTo"] as? String {
+            self.replyingTo = replyingTo
+        }
         
         self.caption = dictionary["caption"] as? String ?? ""
         self.likes = dictionary["likes"] as? Int ?? 0

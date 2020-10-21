@@ -29,6 +29,12 @@ class ProfileFilterView: UIView {
         return collecionView
     }()
     
+    private lazy var underLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .twitterBlue
+        return view
+    }()
+    
     // MARK: - Lifecycles
     
     override init(frame: CGRect) {
@@ -44,6 +50,15 @@ class ProfileFilterView: UIView {
         super.init(coder: coder)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.addSubview(self.underLineView)
+        underLineView.anchor(left: self.leftAnchor,
+                             bottom: self.bottomAnchor,
+                             width: self.frame.width / CGFloat(ProfileFilterOptions.allCases.count),
+                             height: 2)
+    }
+    
     // MARK: - Selectors
     
     // MARK: - Helpers
@@ -53,6 +68,16 @@ class ProfileFilterView: UIView {
 // MARK: - UICollectionViewDelegate
 extension ProfileFilterView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else {
+            return
+        }
+        
+        let xPos = cell.frame.origin.x
+        
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut) {
+            self.underLineView.frame.origin.x = xPos
+        }
+        
         self.delegate?.filterView(self, didSelectItemAt: indexPath)
     }
 }
