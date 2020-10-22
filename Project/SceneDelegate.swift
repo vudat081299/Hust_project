@@ -7,6 +7,9 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -16,6 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: scene)
+        
+        self.logOut()
     
         if Auth.auth().currentUser == nil {
             self.toLogin(view: UINavigationController(rootViewController: LoginController()))

@@ -7,6 +7,9 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 protocol LoginServiceProtocol {
     func login(email: String, password: String, completion: @escaping(AuthDataResult?, Error?) -> ())

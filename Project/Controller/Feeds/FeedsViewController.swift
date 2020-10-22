@@ -16,6 +16,7 @@ class FeedsViewController: UICollectionViewController {
     
     private var tweets = [Tweet]() {
         didSet {
+            self.collectionView.refreshControl?.endRefreshing()
             self.collectionView.reloadData()
         }
     }
@@ -37,26 +38,42 @@ class FeedsViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.barStyle = .default
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(hanldeRefresh(_:)), for: .valueChanged)
+        self.collectionView.refreshControl = refreshControl
     }
     
-    // MARK: - Helpers
+    
+    // MARK: - Selectors
+    
+    @objc private func hanldeRefresh(_ sender: UIRefreshControl) {
+        self.fetchTweet()
+    }
+    
+    // MARK: -  Api
     
     private func fetchTweet() {
+        self.collectionView.refreshControl?.beginRefreshing()
         TweetService.shared.fetchTweet { [weak self] tweets in
             guard let `self` = self else { return }
-            self.tweets = tweets
-            self.checkIfUserLikeTweet(tweets)
+            self.tweets = tweets.sorted { $0.timestamp > $1.timestamp }
+            self.checkIfUserLikeTweet()
         }
     }
     
-    private func checkIfUserLikeTweet(_ tweets: [Tweet]) {
-        for (index, tweet) in tweets.enumerated() {
+    private func checkIfUserLikeTweet() {
+        self.tweets.forEach { tweet in
             TweetService.shared.checkIfUserLikeTweet(tweet: tweet) { didLike in
                 guard didLike == true else { return }
-                self.tweets[index].didLike = true
+                if let index = self.tweets.firstIndex(where: { $0.tweetId == tweet.tweetId }) {
+                    self.tweets[index].didLike = true
+                }
             }
         }
     }
+    
+    // MARK: - Helpers
     
     private func configureViewController() {
         

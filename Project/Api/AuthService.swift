@@ -7,6 +7,9 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
+import FirebaseDatabase
+import FirebaseStorage
 
 struct AuthCredentials {
     let email: String

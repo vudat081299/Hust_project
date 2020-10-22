@@ -47,18 +47,27 @@ struct TweetService {
     
     func fetchTweet(completion: @escaping ([Tweet]) -> ()) {
         var tweets = [Tweet]()
-        REF_TWEETS.observe(.childAdded) { snapshot in
-            guard let dictionary = snapshot.value as? [String: Any] else { return }
-            guard let uid = dictionary["uid"] as? String else { return }
-            let tweetId = snapshot.key
+        
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        REF_USER_FOLLOWING.child(currentUid).observe(.childAdded) { snapshot in
+            let followedUid = snapshot.key
             
-            UserService.shared.fetchUser(userId: uid) { user in
-                guard let user = user else { return }
-                let tweet = Tweet(user: user, tweetId: tweetId, dictionary: dictionary)
-                tweets.append(tweet)
+            REF_USER_TWEETS.child(followedUid).observe(.childAdded) { snapshot in
+                let tweetId = snapshot.key
+                self.fetchTweet(withTweetId: tweetId) { tweetsData in
+                    tweets.append(tweetsData)
+                    completion(tweets)
+                }
+            }
+        }
+        
+        REF_USER_TWEETS.child(currentUid).observe(.childAdded) { snapshot in
+            let tweetId = snapshot.key
+            self.fetchTweet(withTweetId: tweetId) { tweetsData in
+                tweets.append(tweetsData)
                 completion(tweets)
             }
-            
         }
     }
     
