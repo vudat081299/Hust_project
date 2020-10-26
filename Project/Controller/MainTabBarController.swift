@@ -38,9 +38,7 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        DispatchQueue.main.async {
-            self.actionButton.layer.cornerRadius = self.actionButton.frame.width / 2
-        }
+        self.actionButton.layer.cornerRadius = self.actionButton.frame.width / 2
     }
     
     // MARK: - API

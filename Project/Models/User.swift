@@ -14,10 +14,11 @@ import FirebaseStorage
 struct User {
     let uid: String
     let email: String
-    let fullName: String
-    let username: String
-    let profileImageUrl: String
+    var fullName: String
+    var username: String
+    var profileImageUrl: String
     var stats: UserRelationStats?
+    var bio: String?
     
     var isFollowed: Bool = false
     
@@ -29,6 +30,7 @@ struct User {
         self.uid = uid
         self.email = dictionary["email"] as? String ?? ""
         self.fullName = dictionary["fullName"] as? String ?? ""
+        self.bio = dictionary["bio"] as? String ?? ""
         let username = dictionary["username"] as? String ?? ""
         self.username = username.lowercased()
         self.profileImageUrl = dictionary["profileImageUrl"] as? String ?? ""

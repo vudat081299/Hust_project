@@ -19,8 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         self.window = UIWindow(windowScene: scene)
-        
-        self.logOut()
     
         if Auth.auth().currentUser == nil {
             self.toLogin(view: UINavigationController(rootViewController: LoginController()))

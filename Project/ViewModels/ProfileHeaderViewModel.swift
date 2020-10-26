@@ -36,6 +36,10 @@ struct ProfileHeaderViewModel {
         return "@\(self.user.username)"
     }
     
+    var bioText: String {
+        return self.user.bio ?? ""
+    }
+    
     var followingString: NSAttributedString? {
         return self.attributeText(withValue: self.user.stats?.following ?? 0, text: "Following")
     }

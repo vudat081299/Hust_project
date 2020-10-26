@@ -193,6 +193,11 @@ extension ProfileController: ProfileHeaderViewDelegate {
         guard let user = self.user else { return }
         
         if user.isCurrentUser {
+            let editProfileController = EditProfileController(user: user)
+            editProfileController.delegate = self
+            let navigationController = UINavigationController(rootViewController: editProfileController)
+            navigationController.modalPresentationStyle = .fullScreen
+            self.present(navigationController, animated: true, completion: nil)
             return
         }
         
@@ -218,4 +223,14 @@ extension ProfileController: ProfileHeaderViewDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
+}
+
+// MARK: - EditProfileControllerDelegate.
+
+extension ProfileController: EditProfileControllerDelegate {
+    func controller(_ controller: EditProfileController, wantToUpdate user: User) {
+        controller.dismiss(animated: true, completion: nil)
+        self.user = user
+        self.collectionView.reloadData()
+    }
 }

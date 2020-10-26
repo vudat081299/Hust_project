@@ -79,7 +79,6 @@ class ProfileHeaderView: UICollectionReusableView {
     private lazy var bioLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
-        label.text = "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout"
         label.numberOfLines = 3
         return label
     }()
@@ -152,10 +151,8 @@ class ProfileHeaderView: UICollectionReusableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        DispatchQueue.main.async {
-            self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height / 2
-            self.editProfileFollowButton.layer.cornerRadius = self.editProfileFollowButton.frame.height / 2
-        }
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.height / 2
+        self.editProfileFollowButton.layer.cornerRadius = self.editProfileFollowButton.frame.height / 2
     }
     
     // MARK: - Selectors
@@ -190,6 +187,7 @@ class ProfileHeaderView: UICollectionReusableView {
         self.editProfileFollowButton.setTitle(viewModel.actionButtonTitle, for: .normal)
         self.userNameLabel.text = viewModel.userNameText
         self.fullNameLabel.text = viewModel.fullNameText
+        self.bioLabel.text = viewModel.bioText
     }
     
 }
