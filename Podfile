@@ -14,6 +14,7 @@ target 'Project' do
 	pod 'Firebase/Database'
 	pod 'Firebase/Storage'
 	pod 'Firebase/Auth'
+  pod 'ActiveLabel'
 
   target 'ProjectTests' do
     inherit! :search_paths

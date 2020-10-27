@@ -29,7 +29,7 @@ struct UploadTweetViewModel {
             self.actionButtonText = "Reply"
             self.placeholderText = "Tweet your reply"
             self.shouldShowReplyLabel = true
-            self.reply = "reply to \(tweet.user.username)"
+            self.reply = "reply to @\(tweet.user.username)"
         }
     }
 }

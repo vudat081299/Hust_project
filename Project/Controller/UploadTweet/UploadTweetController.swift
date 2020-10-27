@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import ActiveLabel
 
 class UploadTweetController: BaseViewController {
     
@@ -38,10 +38,12 @@ class UploadTweetController: BaseViewController {
         return imageView
     }()
     
-    let replyLabel: UILabel = {
-        let label = UILabel()
+    lazy var replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .lightGray
+        label.isUserInteractionEnabled = true
+        label.mentionColor = .twitterBlue
         return label
     }()
     
@@ -51,6 +53,11 @@ class UploadTweetController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.handleMentionTapped()
     }
     
     // MARK: - Selectors
@@ -138,4 +145,9 @@ class UploadTweetController: BaseViewController {
         self.replyLabel.text = text
     }
 
+    private func handleMentionTapped() {
+        self.replyLabel.handleMentionTap { mention in
+            print(mention)
+        }
+    }
 }
