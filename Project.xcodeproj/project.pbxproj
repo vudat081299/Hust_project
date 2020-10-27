@@ -55,6 +55,7 @@
 		FAF38668253B61BB00E76AF1 /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF38667253B61BB00E76AF1 /* UploadTweetViewModel.swift */; };
 		FAF417F92528C96E00FDDC97 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF417F82528C96E00FDDC97 /* BaseViewController.swift */; };
 		FAF417FF2528CA0600FDDC97 /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF417FE2528CA0600FDDC97 /* ViewControllerExtension.swift */; };
+		FAFD3A06254863100030F4DF /* EditProfileFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD3A05254863100030F4DF /* EditProfileFooterView.swift */; };
 		FAFD58A525208D9C006E4F94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58A425208D9C006E4F94 /* AppDelegate.swift */; };
 		FAFD58A725208D9C006E4F94 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58A625208D9C006E4F94 /* SceneDelegate.swift */; };
 		FAFD58AE25208D9C006E4F94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAFD58AD25208D9C006E4F94 /* Assets.xcassets */; };
@@ -140,6 +141,7 @@
 		FAF38667253B61BB00E76AF1 /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
 		FAF417F82528C96E00FDDC97 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		FAF417FE2528CA0600FDDC97 /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
+		FAFD3A05254863100030F4DF /* EditProfileFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFooterView.swift; sourceTree = "<group>"; };
 		FAFD58A125208D9B006E4F94 /* Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAFD58A425208D9C006E4F94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FAFD58A625208D9C006E4F94 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 				FA408111253A04A8003DF3D7 /* ProfileFilterCell.swift */,
 				FA80F17F2545C4C10030A00D /* EditProfileHeader.swift */,
 				FA80F18C2545CC860030A00D /* EditProfileCell.swift */,
+				FAFD3A05254863100030F4DF /* EditProfileFooterView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -757,6 +760,7 @@
 				FA408112253A04A8003DF3D7 /* ProfileFilterCell.swift in Sources */,
 				FAFD58F225209346006E4F94 /* NotificationsViewController.swift in Sources */,
 				FAFD58E825209321006E4F94 /* FeedsViewController.swift in Sources */,
+				FAFD3A06254863100030F4DF /* EditProfileFooterView.swift in Sources */,
 				FAFD58E325208F9C006E4F94 /* MainTabBarController.swift in Sources */,
 				FA66C5E12523829C00C31151 /* RegistrationController.swift in Sources */,
 				FAF417F92528C96E00FDDC97 /* BaseViewController.swift in Sources */,

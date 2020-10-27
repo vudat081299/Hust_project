@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 private let cellIden = "TweetCell"
 private let collectionHeaderIden = "ProfileHeaderView"
@@ -223,11 +224,29 @@ extension ProfileController: ProfileHeaderViewDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
+    func gotoLoginController() {
+        let loginControllerViewModel = LoginViewModel()
+        let loginController = LoginController.create(with: loginControllerViewModel)
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+            sceneDelegate.changeRootViewController(view: loginController)
+        }
+    }
+    
 }
 
 // MARK: - EditProfileControllerDelegate.
 
 extension ProfileController: EditProfileControllerDelegate {
+    
+    func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+            self.gotoLoginController()
+        } catch {
+            print("Logout fail.")
+        }
+    }
+    
     func controller(_ controller: EditProfileController, wantToUpdate user: User) {
         controller.dismiss(animated: true, completion: nil)
         self.user = user

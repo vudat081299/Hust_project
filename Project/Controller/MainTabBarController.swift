@@ -7,9 +7,16 @@
 
 import UIKit
 
+enum ActionButtonConfiguration {
+    case tweet
+    case message
+}
+
 class MainTabBarController: UITabBarController {
     
     // MARK: - Properties
+    
+    private var buttonConfig: ActionButtonConfiguration = .tweet
     
     var user: User? {
         didSet {
@@ -52,16 +59,27 @@ class MainTabBarController: UITabBarController {
     // MARK: - Selector
     
     @objc private func handleTapActionButton(_ sender: UIButton) {
-        guard let user = self.user else { return }
-        let vc = UploadTweetController(config: .tweet, user: user)
-        let nav = UINavigationController(rootViewController: vc)
-        nav.modalPresentationStyle = .fullScreen
-        self.present(nav, animated: true, completion: nil)
+        
+        let controller: UIViewController
+        
+        switch self.buttonConfig {
+        case .message:
+//            controller = ExploreViewController()
+        print("Message.")
+        case .tweet:
+            guard let user = self.user else { return }
+            controller = UploadTweetController(config: .tweet, user: user)
+            let nav = UINavigationController(rootViewController: controller)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true, completion: nil)
+        }
     }
     
     // MARK: - Helpers
     
     private func configureUI() {
+        self.delegate = self
+        
         self.view.addSubview(self.actionButton)
         self.actionButton.anchor(bottom: self.view.safeAreaLayoutGuide.bottomAnchor, right: self.view.rightAnchor, paddingBottom: 64, paddingRight: 16, width: 56, height: 56)
     }
@@ -92,5 +110,14 @@ class MainTabBarController: UITabBarController {
         nav.tabBarItem.image = image
         nav.navigationBar.barTintColor = .white
         return nav
+    }
+}
+
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let index = self.viewControllers?.firstIndex(of: viewController)
+        let image = index == 3 ? #imageLiteral(resourceName: "ic_mail_outline_white_2x-1") : #imageLiteral(resourceName: "new_tweet")
+        self.actionButton.setImage(image, for: .normal)
+        self.buttonConfig = index == 3 ? .message : .tweet
     }
 }

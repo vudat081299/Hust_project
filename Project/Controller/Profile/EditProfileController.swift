@@ -11,6 +11,7 @@ private let cellIden = "EditProfileCell"
 
 protocol EditProfileControllerDelegate: class {
     func controller(_ controller: EditProfileController, wantToUpdate user: User)
+    func handleLogout()
 }
 
 class EditProfileController: UITableViewController {
@@ -20,6 +21,8 @@ class EditProfileController: UITableViewController {
     weak var delegate: EditProfileControllerDelegate?
     
     private var user: User
+    
+    private let footerView = EditProfileFooterView()
     
     private lazy var profileHeaderView = EditProfileHeader(user: self.user)
     
@@ -125,7 +128,10 @@ class EditProfileController: UITableViewController {
         self.tableView.tableHeaderView = self.profileHeaderView
         self.profileHeaderView.delegate = self
         self.profileHeaderView.frame = CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 180)
-        self.tableView.tableFooterView = UIView()
+        
+        self.footerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 100)
+        self.footerView.delegate = self
+        self.tableView.tableFooterView = self.footerView
         self.tableView.register(EditProfileCell.self, forCellReuseIdentifier: cellIden)
     }
     
@@ -208,4 +214,26 @@ extension EditProfileController: EditProfileCellDelegate {
             user.bio = bio
         }
     }
+}
+
+// MARK: - EditProfileFooterViewDelegate
+
+extension EditProfileController: EditProfileFooterViewDelegate {
+    
+    func didTapLogout(_ footerView: EditProfileFooterView) {
+        let alert = UIAlertController(title: nil, message: "Are your sure you want to log out?", preferredStyle: .actionSheet)
+        
+        let logoutAction = UIAlertAction(title: "Logout", style: .default) { action in
+            self.dismiss(animated: true) {
+                self.delegate?.handleLogout()
+            }
+        }
+        alert.addAction(logoutAction)
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel) { action in }
+        alert.addAction(cancel)
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+
 }

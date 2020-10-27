@@ -17,6 +17,11 @@ class FeedsViewController: UICollectionViewController {
     private var tweets = [Tweet]() {
         didSet {
             self.collectionView.refreshControl?.endRefreshing()
+            if self.collectionView.refreshControl == nil {
+                let refreshControl = UIRefreshControl()
+                refreshControl.addTarget(self, action: #selector(hanldeRefresh(_:)), for: .valueChanged)
+                self.collectionView.refreshControl = refreshControl
+            }
             self.collectionView.reloadData()
         }
     }
@@ -38,10 +43,6 @@ class FeedsViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.barStyle = .default
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(hanldeRefresh(_:)), for: .valueChanged)
-        self.collectionView.refreshControl = refreshControl
     }
     
     
@@ -49,6 +50,12 @@ class FeedsViewController: UICollectionViewController {
     
     @objc private func hanldeRefresh(_ sender: UIRefreshControl) {
         self.fetchTweet()
+    }
+    
+    @objc private func handleGoToProfile(_ sender: UIImageView) {
+        guard let user = self.user else { return }
+        let profileController = ProfileController(user)
+        self.navigationController?.pushViewController(profileController, animated: true)
     }
     
     // MARK: -  Api
@@ -97,6 +104,9 @@ class FeedsViewController: UICollectionViewController {
         profileImageView.setDimensions(width: 32, height: 32)
         profileImageView.layer.cornerRadius = 32 / 2
         profileImageView.layer.masksToBounds = true
+        
+        profileImageView.isUserInteractionEnabled = true
+        profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleGoToProfile(_:))))
         
         guard let imageUrl = URL(string: user.profileImageUrl) else { return }
         

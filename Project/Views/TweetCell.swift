@@ -72,37 +72,25 @@ class TweetCell: UICollectionViewCell {
     }()
     
     private lazy var commentButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "comment"), for: .normal)
-        button.tintColor = .darkGray
-        button.setDimensions(width: 20, height: 20)
+        let button = self.createButton(withImageName: "comment")
         button.addTarget(self, action: #selector(handleComment(_:)), for: .touchUpInside)
         return button
     }()
     
     private lazy var retweetButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "retweet"), for: .normal)
-        button.tintColor = .darkGray
-        button.setDimensions(width: 20, height: 20)
+        let button = self.createButton(withImageName: "retweet")
         button.addTarget(self, action: #selector(handleRetweet(_:)), for: .touchUpInside)
         return button
     }()
     
     private lazy var likeButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "like"), for: .normal)
-        button.tintColor = .darkGray
-        button.setDimensions(width: 20, height: 20)
+        let button = self.createButton(withImageName: "like")
         button.addTarget(self, action: #selector(handleLike(_:)), for: .touchUpInside)
         return button
     }()
     
     private lazy var shareButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "share"), for: .normal)
-        button.tintColor = .darkGray
-        button.setDimensions(width: 20, height: 20)
+        let button = self.createButton(withImageName: "share")
         button.addTarget(self, action: #selector(handleShare(_:)), for: .touchUpInside)
         return button
     }()
@@ -198,6 +186,14 @@ class TweetCell: UICollectionViewCell {
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
         
+    }
+    
+    private func createButton(withImageName imageName: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: imageName), for: .normal)
+        button.tintColor = .darkGray
+        button.setDimensions(width: 20, height: 20)
+        return button
     }
     
     private func configureData() {
