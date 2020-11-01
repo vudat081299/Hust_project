@@ -171,7 +171,7 @@ extension FeedsViewController: TweetCellDelegate {
         }
     }
     
-    func handleProfileImageTapped(_ cell: TweetCell, at indexpath: IndexPath) {
+    func handleProfileImageTapped(_ cell: TweetCell) {
         guard let user = cell.tweet?.user else { return }
         let profileComtroller = ProfileController(user)
         self.navigationController?.pushViewController(profileComtroller, animated: true)

@@ -1,5 +1,5 @@
 //
-//  Extension.swift
+//  UIViewExtension.swift
 //  Project
 //
 //  Created by Be More on 9/29/20.
@@ -8,22 +8,23 @@
 import Foundation
 import UIKit
 
+// MARK: - Programatically constraints
+
 extension UIView {
-    // MARK: - Programatically constraints
 
     /// Add constraints programatically.
     ///
     /// - Parameters:
-    ///   - top: constraint to top anchor
-    ///   - left: constraint to left anchor
-    ///   - bottom: constraint to bottom anchor
-    ///   - right: constraint to right anchor
-    ///   - paddingTop: top padding
-    ///   - paddingLeft: left padding
-    ///   - paddingBottom: bottom padding
-    ///   - paddingRight: right padding
-    ///   - width: set width
-    ///   - height: set height
+    ///   - top:            constraint to top anchor
+    ///   - left:           constraint to left anchor
+    ///   - bottom:         constraint to bottom anchor
+    ///   - right:          constraint to right anchor
+    ///   - paddingTop:     top padding
+    ///   - paddingLeft:    left padding
+    ///   - paddingBottom:  bottom padding
+    ///   - paddingRight:   right padding
+    ///   - width:          set width
+    ///   - height:         set height
     func anchor(top: NSLayoutYAxisAnchor? = nil,
                 left: NSLayoutXAxisAnchor? = nil,
                 bottom: NSLayoutYAxisAnchor? = nil,
@@ -65,7 +66,7 @@ extension UIView {
     /// Center to superview
     ///
     /// - Parameters:
-    ///   - view: center to view
+    ///   - view:      center to view
     ///   - yConstant: set y constraint
     func center(inView view: UIView, xConstant: CGFloat? = 0 , yConstant: CGFloat? = 0) {
         translatesAutoresizingMaskIntoConstraints = false
@@ -76,8 +77,8 @@ extension UIView {
     /// Center X to superview
     ///
     /// - Parameters:
-    ///   - view: superview
-    ///   - topAnchor: constraint to top anchor
+    ///   - view:       superview
+    ///   - topAnchor:  constraint to top anchor
     ///   - paddingTop: add padding top
     func centerX(inView view: UIView, topAnchor: NSLayoutYAxisAnchor? = nil, paddingTop: CGFloat? = 0) {
         translatesAutoresizingMaskIntoConstraints = false
@@ -91,10 +92,10 @@ extension UIView {
     /// Center Y to superview
     ///
     /// - Parameters:
-    ///   - view: superview
+    ///   - view:        superview
     ///   - leftAnchor:  constraint to left anchor
-    ///   - paddingLeft:  add padding left
-    ///   - constant: constant set to center y anchor
+    ///   - paddingLeft: add padding left
+    ///   - constant:    constant set to center y anchor
     func centerY(inView view: UIView, leftAnchor: NSLayoutXAxisAnchor? = nil, paddingLeft: CGFloat? = nil, constant: CGFloat? = 0) {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -108,7 +109,7 @@ extension UIView {
     /// Set view dimensions
     ///
     /// - Parameters:
-    ///     - width: set width anchor
+    ///     - width:  set width anchor
     ///     - height: set height anchor
     func setDimensions(width: CGFloat, height: CGFloat) {
         translatesAutoresizingMaskIntoConstraints = false
@@ -130,7 +131,7 @@ extension UIView {
     ///
     /// - Parameters:
     ///   - format: format
-    ///   - views: constraint in view
+    ///   - views:  constraint in view
     func addVisualFormatConstraint(format: String, views: UIView...) {
         var viewDictionaries = [String: UIView]()
         
@@ -141,14 +142,7 @@ extension UIView {
         }
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: viewDictionaries))
     }
+    
 }
 
-// MARK: - UIColor
-extension UIColor {
-    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
-        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
-    }
-    
-    static let twitterBlue = UIColor.rgb(red: 29, green: 161, blue: 242)
-}
 

@@ -5,6 +5,7 @@
 //  Created by Be More on 9/30/20.
 //
 
+import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
@@ -34,3 +35,8 @@ let REF_TWEET_LIKES = DB_REF.child("tweet-likes")
 let REF_NOTIFICATION = DB_REF.child("notifications")
 
 let REF_USER_REPLIES = DB_REF.child("user-replies")
+
+extension UIColor {
+    /// app main color
+    static let twitterBlue = UIColor.rgb(red: 29, green: 161, blue: 242)
+}

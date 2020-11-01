@@ -10,25 +10,55 @@ import UIKit
 private let headerIden = "TweetHeader"
 private let cellIden = "TweetCell"
 
-class TweetController: UICollectionViewController {
+class TweetController: BaseViewController {
     
     // MARK: - Properties
     
     private var tweet: Tweet
+
+    private var collectionViewHeightAnchor: NSLayoutConstraint?
+    
     private var replies = [Tweet]() {
         didSet {
             self.collectionView.reloadData()
+            let height = self.collectionView.collectionViewLayout.collectionViewContentSize.height
+            self.collectionViewHeightAnchor?.constant = height
+            self.view.layoutIfNeeded()
         }
     }
     
     private var actionSheetLaucher: ActionSheetLaucher
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.isScrollEnabled = true
+        return scrollView
+    }()
+    
+    private lazy var tweetHeaderView: TweetHeader = {
+        let view = TweetHeader()
+        view.isUserInteractionEnabled = true
+        view.tweet = self.tweet
+        view.delegate = self
+        return view
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let collecionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collecionView.backgroundColor = .white
+        collecionView.delegate = self
+        collecionView.dataSource = self
+        collecionView.backgroundColor = .white
+        return collecionView
+    }()
     
     // MARK: - Lifecycles
     
     init(_ tweet: Tweet) {
         self.tweet = tweet
         self.actionSheetLaucher = ActionSheetLaucher(tweet.user)
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -63,38 +93,50 @@ class TweetController: UICollectionViewController {
         
         self.title = "Tweet"
         
-        self.collectionView.backgroundColor = .white
+        self.view.addSubview(self.scrollView)
+       
+        self.scrollView.anchor(top: self.view.topAnchor,
+                               left: self.view.leftAnchor,
+                               bottom: self.view.bottomAnchor,
+                               right: self.view.rightAnchor)
+    
+        self.scrollView.addSubview(self.tweetHeaderView)
+        self.tweetHeaderView.anchor(top: self.scrollView.topAnchor,
+                                    left: self.scrollView.leftAnchor,
+                                    right: self.scrollView.rightAnchor)
+        self.tweetHeaderView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor).isActive = true
         
+        self.scrollView.addSubview(self.collectionView)
+        self.collectionView.anchor(top: self.tweetHeaderView.bottomAnchor,
+                                   left: self.scrollView.leftAnchor,
+                                   bottom: self.scrollView.bottomAnchor,
+                                   right: self.scrollView.rightAnchor)
+        
+        self.collectionViewHeightAnchor = self.collectionView.heightAnchor.constraint(equalToConstant: 0)
+        self.collectionViewHeightAnchor?.priority = .required - 1
+        self.collectionViewHeightAnchor?.isActive = true
+        
+        self.collectionView.widthAnchor.constraint(equalTo: self.scrollView.widthAnchor).isActive = true
+
         self.collectionView.register(TweetCell.self, forCellWithReuseIdentifier: cellIden)
-        
-        self.collectionView.register(TweetHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIden)
-        
+            
     }
     
 }
 
 // MARK: - UICollectionViewDelegate
-extension TweetController {
+extension TweetController: UICollectionViewDelegate {
     
 }
 
 // MARK: - UICollectionViewDataSource
-extension TweetController {
+extension TweetController: UICollectionViewDataSource {
     
-    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerCell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIden, for: indexPath) as? TweetHeader else {
-            return TweetHeader()
-        }
-        headerCell.tweet = self.tweet
-        headerCell.delegate = self
-        return headerCell
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.replies.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIden, for: indexPath) as? TweetCell else {
             return UICollectionViewCell()
         }
@@ -109,16 +151,11 @@ extension TweetController {
 // MARK: - UICollectionViewDelegateFlowLayout
 extension TweetController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let tweet = self.replies[indexPath.item]
         let viewModel = TweetViewModel(tweet)
         let height = viewModel.size(forWidth: self.collectionView.frame.width).height
-        return CGSize(width: self.collectionView.frame.width, height: height + 260)
-    
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.collectionView.frame.width, height: 120)
+        return CGSize(width: self.collectionView.frame.width, height: height + 72)
     }
     
 }

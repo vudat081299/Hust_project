@@ -7,37 +7,8 @@
 
 import UIKit
 
-extension UIResponder {
-    
-    /// - Returns: Returns the next responder in the responder chain cast to the given type, or if nil, recurses the chain until the next responder is nil or castable.
-    func next<U: UIResponder>(of type: U.Type = U.self) -> U? {
-        return self.next.flatMap({ $0 as? U ?? $0.next() })
-    }
-}
-
-extension UITableViewCell {
-    var tableView: UITableView? {
-        return self.next(of: UITableView.self)
-    }
-
-    var indexPath: IndexPath? {
-        return self.tableView?.indexPath(for: self)
-    }
-}
-
-
-extension UICollectionViewCell {
-    var collectionView: UICollectionView? {
-        return self.next(of: UICollectionView.self)
-    }
-
-    var indexPath: IndexPath? {
-        return self.collectionView?.indexPath(for: self)
-    }
-}
-
 protocol TweetCellDelegate: class {
-    func handleProfileImageTapped(_ cell: TweetCell, at indexpath: IndexPath)
+    func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
     func handleLikeTweet(_ cell: TweetCell)
 }
@@ -119,8 +90,7 @@ class TweetCell: UICollectionViewCell {
     // MARK: - Selectors
     
     @objc private func handleShowProfile(_ sender: UIImageView) {
-        guard let indexPath = self.indexPath else { return }
-        self.delegate?.handleProfileImageTapped(self, at: indexPath)
+        self.delegate?.handleProfileImageTapped(self)
     }
     
     @objc private func handleComment(_ sender: UIButton) {
@@ -143,7 +113,6 @@ class TweetCell: UICollectionViewCell {
     
     private func configureUI() {
         
-        
         let captionStackView = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
         captionStackView.axis = .vertical
         captionStackView.distribution = .fillProportionally
@@ -159,18 +128,20 @@ class TweetCell: UICollectionViewCell {
         stackView.spacing = 8
         stackView.distribution = .fillProportionally
         
+        let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
+        actionStack.axis = .horizontal
+        actionStack.spacing = 72
+        self.contentView.addSubview(actionStack)
+        
         self.contentView.addSubview(stackView)
         stackView.anchor(top: self.contentView.topAnchor,
                          left: self.contentView.leftAnchor,
+                         bottom: actionStack.topAnchor,
                          right: self.contentView.rightAnchor,
                          paddingTop: 4,
                          paddingLeft: 12,
                          paddingRight: 12)
         
-        let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
-        actionStack.axis = .horizontal
-        actionStack.spacing = 72
-        self.contentView.addSubview(actionStack)
         
         actionStack.centerX(inView: self.contentView)
         actionStack.anchor(bottom: self.contentView.bottomAnchor, paddingBottom: 8)

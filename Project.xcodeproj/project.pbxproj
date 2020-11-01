@@ -14,7 +14,7 @@
 		FA0DC9FC25265FED00377539 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0DC9FB25265FED00377539 /* User.swift */; };
 		FA1108D92538C0AA00443971 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1108D82538C0AA00443971 /* ProfileController.swift */; };
 		FA1108E12538C57B00443971 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1108E02538C57B00443971 /* ProfileHeaderView.swift */; };
-		FA2495C02523218C0060BECD /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2495BF2523218C0060BECD /* Extension.swift */; };
+		FA2495C02523218C0060BECD /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2495BF2523218C0060BECD /* UIViewExtension.swift */; };
 		FA26202D25374A3B000E1755 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA26202C25374A3B000E1755 /* Tweet.swift */; };
 		FA262049253753C0000E1755 /* TweetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA262048253753C0000E1755 /* TweetCell.swift */; };
 		FA26204E25376B2C000E1755 /* TweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA26204D25376B2C000E1755 /* TweetViewModel.swift */; };
@@ -67,6 +67,10 @@
 		FAFD58ED25209338006E4F94 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58EC25209338006E4F94 /* ExploreViewController.swift */; };
 		FAFD58F225209346006E4F94 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58F125209346006E4F94 /* NotificationsViewController.swift */; };
 		FAFD58F72520935C006E4F94 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFD58F62520935C006E4F94 /* ConversationsViewController.swift */; };
+		FAFDD715254E4E4B000C39FF /* BMTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDD714254E4E4B000C39FF /* BMTableViewCell.swift */; };
+		FAFDD71D254E4E5C000C39FF /* BMCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDD71C254E4E5C000C39FF /* BMCollectionViewCell.swift */; };
+		FAFDD725254E5039000C39FF /* UIColorExention.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDD724254E5039000C39FF /* UIColorExention.swift */; };
+		FAFDD72A254E5292000C39FF /* UIControllExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFDD729254E5292000C39FF /* UIControllExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,7 +104,7 @@
 		FA0DC9FB25265FED00377539 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		FA1108D82538C0AA00443971 /* ProfileController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		FA1108E02538C57B00443971 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
-		FA2495BF2523218C0060BECD /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		FA2495BF2523218C0060BECD /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		FA26202C25374A3B000E1755 /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		FA262048253753C0000E1755 /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		FA26204D25376B2C000E1755 /* TweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetViewModel.swift; sourceTree = "<group>"; };
@@ -159,6 +163,10 @@
 		FAFD58EC25209338006E4F94 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		FAFD58F125209346006E4F94 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		FAFD58F62520935C006E4F94 /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
+		FAFDD714254E4E4B000C39FF /* BMTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMTableViewCell.swift; sourceTree = "<group>"; };
+		FAFDD71C254E4E5C000C39FF /* BMCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BMCollectionViewCell.swift; sourceTree = "<group>"; };
+		FAFDD724254E5039000C39FF /* UIColorExention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExention.swift; sourceTree = "<group>"; };
+		FAFDD729254E5292000C39FF /* UIControllExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControllExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +305,7 @@
 		FAF417F72528C95D00FDDC97 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				FAFDD70B254E4D2A000C39FF /* class */,
 				FA2C25C02532CA530042EC43 /* BindData */,
 				FAF417FD2528C9D700FDDC97 /* Extension */,
 				FA2C25A72532C7260042EC43 /* Protocols */,
@@ -308,8 +317,10 @@
 		FAF417FD2528C9D700FDDC97 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				FA2495BF2523218C0060BECD /* Extension.swift */,
+				FA2495BF2523218C0060BECD /* UIViewExtension.swift */,
 				FAF417FE2528CA0600FDDC97 /* ViewControllerExtension.swift */,
+				FAFDD724254E5039000C39FF /* UIColorExention.swift */,
+				FAFDD729254E5292000C39FF /* UIControllExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -481,6 +492,23 @@
 				FAFD58F62520935C006E4F94 /* ConversationsViewController.swift */,
 			);
 			path = Conversations;
+			sourceTree = "<group>";
+		};
+		FAFDD70B254E4D2A000C39FF /* class */ = {
+			isa = PBXGroup;
+			children = (
+				FAFDD713254E4E2E000C39FF /* Cell */,
+			);
+			path = class;
+			sourceTree = "<group>";
+		};
+		FAFDD713254E4E2E000C39FF /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				FAFDD714254E4E4B000C39FF /* BMTableViewCell.swift */,
+				FAFDD71C254E4E5C000C39FF /* BMCollectionViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -730,9 +758,11 @@
 				FA40810D253A01D9003DF3D7 /* ProfileFilterView.swift in Sources */,
 				FA9B7CF52535E7F9006DFFA2 /* UploadTweetController.swift in Sources */,
 				FAFD58A525208D9C006E4F94 /* AppDelegate.swift in Sources */,
+				FAFDD71D254E4E5C000C39FF /* BMCollectionViewCell.swift in Sources */,
 				FAFD58A725208D9C006E4F94 /* SceneDelegate.swift in Sources */,
 				FA576D48253F56A10069BA96 /* NotificationViewModel.swift in Sources */,
 				FA576D39253F3A770069BA96 /* Notification.swift in Sources */,
+				FAFDD725254E5039000C39FF /* UIColorExention.swift in Sources */,
 				FA66C5F6252393B400C31151 /* Utilities.swift in Sources */,
 				FA9B7CFA2535FC85006DFFA2 /* CaptionTextView.swift in Sources */,
 				FA1108D92538C0AA00443971 /* ProfileController.swift in Sources */,
@@ -763,13 +793,15 @@
 				FAFD3A06254863100030F4DF /* EditProfileFooterView.swift in Sources */,
 				FAFD58E325208F9C006E4F94 /* MainTabBarController.swift in Sources */,
 				FA66C5E12523829C00C31151 /* RegistrationController.swift in Sources */,
+				FAFDD72A254E5292000C39FF /* UIControllExtension.swift in Sources */,
+				FAFDD715254E4E4B000C39FF /* BMTableViewCell.swift in Sources */,
 				FAF417F92528C96E00FDDC97 /* BaseViewController.swift in Sources */,
 				FAF38668253B61BB00E76AF1 /* UploadTweetViewModel.swift in Sources */,
 				FA408117253A0F09003DF3D7 /* ProfileHeaderViewModel.swift in Sources */,
 				FA2C25C82532CC1A0042EC43 /* LoginService.swift in Sources */,
 				FAF417FF2528CA0600FDDC97 /* ViewControllerExtension.swift in Sources */,
 				FA89486B253ACBA10071A5DB /* UserCell.swift in Sources */,
-				FA2495C02523218C0060BECD /* Extension.swift in Sources */,
+				FA2495C02523218C0060BECD /* UIViewExtension.swift in Sources */,
 				FA262049253753C0000E1755 /* TweetCell.swift in Sources */,
 				FA2C25C22532CA6A0042EC43 /* BindingTextField.swift in Sources */,
 				FAA362672524D84A00580FE2 /* Constants.swift in Sources */,

@@ -11,7 +11,7 @@ protocol TweetHeaderDelegate: class {
     func showActionSheet(_ view: TweetHeader)
 }
 
-class TweetHeader: UICollectionReusableView {
+class TweetHeader: UIView {
     
     // MARK: - Properties
     
@@ -205,7 +205,7 @@ class TweetHeader: UICollectionReusableView {
         
         self.addSubview(actionStack)
         actionStack.centerX(inView: self)
-        actionStack.anchor(top: statsView.bottomAnchor, paddingTop: 12)
+        actionStack.anchor(top: statsView.bottomAnchor, bottom: self.bottomAnchor, paddingTop: 12)
     }
     
     required init?(coder: NSCoder) {
