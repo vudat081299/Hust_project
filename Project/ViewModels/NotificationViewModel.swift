@@ -28,7 +28,7 @@ struct NotificationViewModel {
         case .like:
             return " liked your tweet"
         case .reply:
-            return " rely to your tweet"
+            return " reply to your tweet"
         case .retweet:
             return " retweeted your tweet"
         case .mention:
@@ -40,10 +40,12 @@ struct NotificationViewModel {
         let attributeString = NSMutableAttributedString(string: user.username, attributes: [.font: UIFont.boldSystemFont(ofSize: 12),
                                                                                             .foregroundColor: UIColor.black])
         
-        attributeString.append(NSAttributedString(string: self.notificationString, attributes: [.font: UIFont.systemFont(ofSize: 12)]))
+        attributeString.append(NSAttributedString(string: self.notificationString, attributes: [.font: UIFont.systemFont(ofSize: 12),
+                                                                                                .foregroundColor: UIColor.black]
+        ))
         
         attributeString.append(NSAttributedString(string: " \(self.timestamp)", attributes: [.font: UIFont.systemFont(ofSize: 12),
-                                                                                       .foregroundColor: UIColor.lightGray]))
+                                                                                             .foregroundColor: UIColor.lightGray]))
         
         return attributeString
     }

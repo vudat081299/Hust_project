@@ -58,6 +58,8 @@ class NotificationCell: UITableViewCell {
         
         self.selectionStyle = .none
         
+        self.contentView.backgroundColor = .white
+        
         let stackView = UIStackView(arrangedSubviews: [profileImageView, notificationLabel])
         stackView.spacing = 8
         stackView.alignment = .center

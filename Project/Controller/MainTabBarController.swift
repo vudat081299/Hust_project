@@ -86,6 +86,9 @@ class MainTabBarController: UITabBarController {
     
     /// configure.
     private func configureViewController() {
+        
+        UITabBar.appearance().barTintColor = .systemGroupedBackground
+        
         let feedsViewController = FeedsViewController(collectionViewLayout: UICollectionViewFlowLayout())
         let exploreViewController = ExploreViewController()
         let notificationsViewController = NotificationsViewController()

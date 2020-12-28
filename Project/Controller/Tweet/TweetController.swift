@@ -77,7 +77,7 @@ class TweetController: BaseViewController {
         self.navigationController?.navigationBar.barStyle = .default
     }
     
-    // MARK: - Selectors
+    // MARK: - Selectorsr
     
     // MARK: - API
     
@@ -197,6 +197,7 @@ extension TweetController: ActionSheetLaucherDelegate {
         case .report:
             break
         case .delete:
+            print("Delete")
             break
         }
     }

@@ -29,6 +29,7 @@ class UserCell: UITableViewCell {
     private let userNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = .black
         label.text = "Username"
         return label
     }()
@@ -48,6 +49,8 @@ class UserCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.selectionStyle = .none
+        
+        self.contentView.backgroundColor = .white
         
         self.contentView.addSubview(self.profileImageView)
         self.profileImageView.centerY(inView: self.contentView,

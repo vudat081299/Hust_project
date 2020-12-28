@@ -6,14 +6,18 @@
 //
 
 import UIKit
+import Firebase
 
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
     func handleLikeTweet(_ cell: TweetCell)
+    func handleDeletePost(_ cell: TweetCell)
 }
 
 class TweetCell: UICollectionViewCell {
+    
+    var needDelete: Bool = false
     
     // MARK: - Properties
     
@@ -38,6 +42,7 @@ class TweetCell: UICollectionViewCell {
     private let captionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .black
         label.numberOfLines = 0
         return label
     }()
@@ -69,11 +74,19 @@ class TweetCell: UICollectionViewCell {
     private let replyLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.systemFont(ofSize: 10)
         return label
     }()
     
     private let infoLabel = UILabel()
+    
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(systemName: "trash", withConfiguration: .none)?.withRenderingMode(.alwaysTemplate).withTintColor(.red), for: .normal)
+        button.addTarget(self, action: #selector(handleDelete(_:)), for: .touchUpInside)
+        button.isHidden = true
+        return button
+    }()
     
     // MARK: - Lifecycle
     
@@ -109,6 +122,9 @@ class TweetCell: UICollectionViewCell {
         
     }
     
+    @objc private func handleDelete(_ sender: UIButton) {
+        self.delegate?.handleDeletePost(self)
+    }
     // MARK: - Helpers
     
     private func configureUI() {
@@ -125,7 +141,7 @@ class TweetCell: UICollectionViewCell {
         
         let stackView = UIStackView(arrangedSubviews: [self.replyLabel, imageCaptionStack])
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 4
         stackView.distribution = .fillProportionally
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
@@ -134,10 +150,18 @@ class TweetCell: UICollectionViewCell {
         self.contentView.addSubview(actionStack)
         
         self.contentView.addSubview(stackView)
+        self.contentView.addSubview(self.deleteButton)
+        
+        self.deleteButton.anchor(top: self.contentView.topAnchor,
+                                 right: self.contentView.rightAnchor,
+                                 paddingTop: 4,
+                                 paddingRight: 12)
+        self.deleteButton.setDimensions(width: 20, height: 20)
+        
         stackView.anchor(top: self.contentView.topAnchor,
                          left: self.contentView.leftAnchor,
                          bottom: actionStack.topAnchor,
-                         right: self.contentView.rightAnchor,
+                         right: self.deleteButton.leftAnchor,
                          paddingTop: 4,
                          paddingLeft: 12,
                          paddingRight: 12)
@@ -147,7 +171,7 @@ class TweetCell: UICollectionViewCell {
         actionStack.anchor(bottom: self.contentView.bottomAnchor, paddingBottom: 8)
         
         let underLineView = UIView()
-        underLineView.backgroundColor = .systemGroupedBackground
+        underLineView.backgroundColor = .lightGray
         self.contentView.addSubview(underLineView)
         
         underLineView.anchor(left: self.contentView.leftAnchor,
@@ -172,6 +196,12 @@ class TweetCell: UICollectionViewCell {
         
         let tweetViewModel = TweetViewModel(tweet)
         
+        if self.needDelete && (tweet.user.uid == Auth.auth().currentUser?.uid) {
+            self.deleteButton.isHidden = false
+        } else {
+            self.deleteButton.isHidden = true
+        }
+        
         self.captionLabel.text = tweetViewModel.caption
     
         self.profileImageView.sd_setImage(with: tweetViewModel.profileImageUrl, completed: nil)
@@ -181,8 +211,9 @@ class TweetCell: UICollectionViewCell {
         
         self.likeButton.setImage(tweetViewModel.likeButtonImage, for: .normal)
         
+        self.replyLabel.text = tweetViewModel.replyText
+        
         self.replyLabel.isHidden = tweetViewModel.shouldHideReplyLabel
         
-        self.replyLabel.text = tweetViewModel.replyText
     }
 }

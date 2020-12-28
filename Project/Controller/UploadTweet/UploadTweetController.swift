@@ -78,6 +78,11 @@ class UploadTweetController: BaseViewController {
     
     @objc private func handleUpload(_ sender: UIButton) {
         guard let caption = self.captionTextView.text else { return }
+        
+        if caption.isEmpty {
+            return
+        }
+        
         TweetService.shared.upload(caption: caption, type: self.config) { [weak self] error, data in
             guard let `self` = self else { return }
             if let error = error {

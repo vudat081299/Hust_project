@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 private let cellIden = "UserCell"
 
@@ -49,7 +50,7 @@ class ExploreViewController: UITableViewController {
     private func fetchUser() {
         UserService.shared.fetchUser { [weak self] (users) in
             guard let `self` = self else { return }
-            self.users = users
+            self.users = users.filter { !$0.isCurrentUser }
         }
     }
     
