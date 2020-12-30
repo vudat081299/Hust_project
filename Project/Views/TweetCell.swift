@@ -171,7 +171,7 @@ class TweetCell: UICollectionViewCell {
         actionStack.anchor(bottom: self.contentView.bottomAnchor, paddingBottom: 8)
         
         let underLineView = UIView()
-        underLineView.backgroundColor = .lightGray
+        underLineView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
         self.contentView.addSubview(underLineView)
         
         underLineView.anchor(left: self.contentView.leftAnchor,
