@@ -25,6 +25,9 @@ class FeedsViewController: UICollectionViewController {
         }
     }
     
+    private var newTweets = [Tweet]()
+    private var highInteractionTweets = [Tweet]()
+    
     var user: User? {
         didSet {
             self.configureLeftBarButton()
@@ -60,15 +63,23 @@ class FeedsViewController: UICollectionViewController {
     // MARK: -  Api
     
     private func fetchTweet() {
+        
         self.collectionView.refreshControl?.beginRefreshing()
         TweetService.shared.fetchTweet { [weak self] tweets in
             guard let `self` = self else { return }
-            self.tweets = tweets.sorted { $0.timestamp > $1.timestamp }
+            
+            self.newTweets = tweets.filter { (Int(Date().timeIntervalSince1970) - Int($0.timestamp.timeIntervalSince1970)) <= 24 * 60 * 60 }.sorted { $0.timestamp > $1.timestamp }
+            
+            self.highInteractionTweets = tweets.filter { !((Int(Date().timeIntervalSince1970) - Int($0.timestamp.timeIntervalSince1970)) < 24 * 60 * 60) }.sorted { $0.timestamp > $1.timestamp }.sorted { $0.likes + $0.comments >  $1.likes + $1.comments }
+            
+            self.tweets = self.newTweets + self.highInteractionTweets
+            
             self.checkIfUserLikeTweet()
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
         }
+        
     }
     
     private func checkIfUserLikeTweet() {
@@ -158,7 +169,10 @@ extension FeedsViewController: UICollectionViewDelegateFlowLayout {
 extension FeedsViewController: TweetCellDelegate {
     func handleReplyTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
-        let uploadTweetController = UploadTweetController(config: .reply(tweet), user: tweet.user)
+        guard let index = self.collectionView.indexPath(for: cell) else { return }
+        
+        let uploadTweetController = UploadTweetController(config: .reply(tweet), user: tweet.user, delegate: self, index: index.item)
+        
         let nav = UINavigationController(rootViewController: uploadTweetController)
         nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: true, completion: nil)
@@ -200,5 +214,16 @@ extension FeedsViewController: TweetCellDelegate {
             }
         }
         
+    }
+}
+
+
+// MARK: - UploadTweetControllerDelegate
+extension FeedsViewController: UploadTweetControllerDelegate {
+    func handleUpdateNumberOfComment(for index: Int) {
+        self.tweets[index].comments += 1
+        DispatchQueue.main.async {
+            self.collectionView.reloadItems(at: [IndexPath(item: index, section: 0)])
+        }
     }
 }

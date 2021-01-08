@@ -11,6 +11,7 @@ struct Tweet {
     let caption: String
     let tweetId: String
     var likes: Int
+    var comments: Int
     var timestamp: Date!
     let retweets: Int
     var user: User!
@@ -31,6 +32,7 @@ struct Tweet {
         
         self.caption = dictionary["caption"] as? String ?? ""
         self.likes = dictionary["likes"] as? Int ?? 0
+        self.comments = dictionary["comments"] as? Int ?? 0
         self.retweets = dictionary["retweets"] as? Int ?? 0
         
         if let timestamp = dictionary["timestamp"] as? Double {

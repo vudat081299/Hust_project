@@ -22,6 +22,7 @@ struct TweetService {
         var values = ["uid": uid,
                      "timestamp": Int(NSDate().timeIntervalSince1970),
                      "likes": 0,
+                     "comments": 0,
                      "retweets": 0,
                      "caption": caption] as [String: Any]
         
@@ -36,6 +37,9 @@ struct TweetService {
         case .reply(let tweet):
             
             values["replyingTo"] = tweet.user.username
+            
+            let comment = tweet.comments + 1
+            REF_TWEETS.child(tweet.tweetId).child("comments").setValue(comment)
             
             REF_TWEET_REPLIES.child(tweet.tweetId).childByAutoId().updateChildValues(values) { (err, ref) in
                 guard let replyId = ref.key else { return }

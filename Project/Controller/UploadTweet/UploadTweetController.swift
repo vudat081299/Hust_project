@@ -8,11 +8,19 @@
 import UIKit
 import ActiveLabel
 
+protocol UploadTweetControllerDelegate: class {
+    func handleUpdateNumberOfComment(for index: Int)
+}
+
 class UploadTweetController: BaseViewController {
     
     // MARK: - Properties
     
+    weak var delegate: UploadTweetControllerDelegate?
+    
     private let user: User
+    
+    private var index = Int()
     
     private let config: UploadTweetConfiguration
     
@@ -62,9 +70,11 @@ class UploadTweetController: BaseViewController {
     
     // MARK: - Selectors
     
-    init(config: UploadTweetConfiguration, user: User) {
+    init(config: UploadTweetConfiguration, user: User, delegate: UploadTweetControllerDelegate? = nil, index: Int = 0) {
         self.user = user
         self.config = config
+        self.delegate = delegate
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -85,12 +95,12 @@ class UploadTweetController: BaseViewController {
         
         TweetService.shared.upload(caption: caption, type: self.config) { [weak self] error, data in
             guard let `self` = self else { return }
-            if let error = error {
-                print(error.localizedDescription)
+            if error != nil {
                 return
             }
             
             if case .reply(let tweet) = self.config {
+                self.delegate?.handleUpdateNumberOfComment(for: self.index)
                 NotificationService.shared.uploadNotification(.reply, tweet: tweet)
             }
             
