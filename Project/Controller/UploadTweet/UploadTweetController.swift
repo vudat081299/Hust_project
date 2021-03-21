@@ -18,10 +18,6 @@ class UploadTweetController: BaseViewController {
     
     weak var delegate: UploadTweetControllerDelegate?
     
-    
-    
-    
-    
     private let user: User
     
     private var index = Int()
