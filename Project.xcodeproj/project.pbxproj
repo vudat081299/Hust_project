@@ -50,6 +50,7 @@
 		FA9B7CFF25361604006DFFA2 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9B7CFE25361604006DFFA2 /* TweetService.swift */; };
 		FAA362672524D84A00580FE2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA362662524D84A00580FE2 /* Constants.swift */; };
 		FAA3626C2524EE0500580FE2 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA3626B2524EE0500580FE2 /* AuthService.swift */; };
+		FAB9759E2602F87C006A66BB /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB9759D2602F87C006A66BB /* SplashViewController.swift */; };
 		FAF3865B253B330200E76AF1 /* TweetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF3865A253B330200E76AF1 /* TweetController.swift */; };
 		FAF38663253B382100E76AF1 /* TweetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF38662253B382100E76AF1 /* TweetHeader.swift */; };
 		FAF38668253B61BB00E76AF1 /* UploadTweetViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF38667253B61BB00E76AF1 /* UploadTweetViewModel.swift */; };
@@ -140,6 +141,7 @@
 		FA9B7CFE25361604006DFFA2 /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
 		FAA362662524D84A00580FE2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		FAA3626B2524EE0500580FE2 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		FAB9759D2602F87C006A66BB /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		FAF3865A253B330200E76AF1 /* TweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetController.swift; sourceTree = "<group>"; };
 		FAF38662253B382100E76AF1 /* TweetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetHeader.swift; sourceTree = "<group>"; };
 		FAF38667253B61BB00E76AF1 /* UploadTweetViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetViewModel.swift; sourceTree = "<group>"; };
@@ -294,6 +296,14 @@
 			path = UploadTweet;
 			sourceTree = "<group>";
 		};
+		FAB9759C2602F86D006A66BB /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				FAB9759D2602F87C006A66BB /* SplashViewController.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
 		FAF38659253B32EC00E76AF1 /* Tweet */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +420,7 @@
 		FAFD58DB25208ED4006E4F94 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FAB9759C2602F86D006A66BB /* Splash */,
 				FAFD58E225208F9C006E4F94 /* MainTabBarController.swift */,
 				FA9B7CF32535E7DE006DFFA2 /* UploadTweet */,
 				FA66C5DA2523822C00C31151 /* Authentication */,
@@ -782,6 +793,7 @@
 				FA2C25BC2532C89D0042EC43 /* LoginViewModel.swift in Sources */,
 				FAA3626C2524EE0500580FE2 /* AuthService.swift in Sources */,
 				FA2C25CF2532DEC30042EC43 /* Observers.swift in Sources */,
+				FAB9759E2602F87C006A66BB /* SplashViewController.swift in Sources */,
 				FA2C25A92532C7400042EC43 /* ViewModelProtocol.swift in Sources */,
 				FAF3865B253B330200E76AF1 /* TweetController.swift in Sources */,
 				FA80F1882545CBB20030A00D /* EditProfileViewModel.swift in Sources */,

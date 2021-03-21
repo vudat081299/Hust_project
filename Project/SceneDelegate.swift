@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if Auth.auth().currentUser == nil {
             self.toLogin(view: UINavigationController(rootViewController: LoginController()))
         } else {
-            self.window?.rootViewController = MainTabBarController()
+            self.window?.rootViewController = SplashViewController()
         }
         
         self.window?.makeKeyAndVisible()

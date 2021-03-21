@@ -28,4 +28,21 @@ class BaseViewController: UIViewController {
         self.view.backgroundColor = .white
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleResignFirstResponder)))
     }
+    
+    func changeRootViewControllerTo(rootViewController: UIViewController, withOption options: UIView.AnimationOptions = .curveLinear, duration: TimeInterval = 0) {
+        
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let sceneDelegate = windowScene.delegate as? SceneDelegate
+        else {
+            return
+        }
+    
+        sceneDelegate.window?.rootViewController = rootViewController
+        
+        UIView.transition(with: sceneDelegate.window!,
+                          duration: duration,
+                          options: options,
+                          animations: {},
+                          completion:{ completed in })
+    }
 }

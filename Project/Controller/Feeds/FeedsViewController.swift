@@ -102,7 +102,7 @@ class FeedsViewController: UICollectionViewController {
         
         self.collectionView.backgroundColor = .white
         
-        guard let logoImage = UIImage(named: "cat") else {
+        guard let logoImage = UIImage(named: "ic_cat") else {
             return
         }
         let imageView = UIImageView(image: logoImage)

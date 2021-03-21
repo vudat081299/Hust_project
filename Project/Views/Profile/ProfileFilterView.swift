@@ -20,6 +20,7 @@ class ProfileFilterView: UIView {
     weak var delegate: ProfileFilterViewDelegate?
     
     lazy var filterCollectionView: UICollectionView = {
+        
         let layout = UICollectionViewFlowLayout()
         let collecionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collecionView.backgroundColor = .white
@@ -27,6 +28,7 @@ class ProfileFilterView: UIView {
         collecionView.dataSource = self
         collecionView.register(ProfileFilterCell.self, forCellWithReuseIdentifier: cellIden)
         return collecionView
+        
     }()
     
     private lazy var underLineView: UIView = {

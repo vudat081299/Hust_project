@@ -31,7 +31,7 @@ class LoginController: BaseViewController {
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
-        imageView.image = #imageLiteral(resourceName: "cat")
+        imageView.image = #imageLiteral(resourceName: "ic_cat")
         return imageView
     }()
     
